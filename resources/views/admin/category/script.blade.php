@@ -39,10 +39,29 @@
             success: function(result) {
                 $('.modal-title').text('Edit Category');
                 $('#modal-store').modal('show');
-                $('#form-store').find('input[name="name"]').val(result.name);
-                $('#form-store').find('input[name="id"]').val(result.id);
+                $('#form-store').find('input[name="name"]').val(result.data.name);
+                $('#form-store').find('input[name="id"]').val(result.data.id);
             }
         })
+    });
+
+    $('#table').on('click', '.deleteData', function() {
+        let id = $(this).data('id');
+        let konfirmasi = confirm('Are you sure?');
+
+        if (konfirmasi) {
+            $.ajax({
+                url: BASE_URL + '/admin/category/' + id,
+                type: "DELETE",
+                success: function(result) {
+                    successNotif(result.message);
+                    $('#table').DataTable().ajax.reload();
+                },
+                error: function(error) {
+                    errorNotif(res.message);
+                }
+            })
+        }
     });
 
     // submit form
