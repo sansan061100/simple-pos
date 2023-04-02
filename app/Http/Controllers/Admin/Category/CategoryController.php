@@ -20,4 +20,21 @@ class CategoryController extends Controller
         $data['title'] = 'Category';
         return view('admin.category.index', $data);
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $store = Category::updateOrCreate([
+            'id' => $request->id
+        ], $request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => $request->id == null ? 'Category created successfully' : 'Category updated successfully',
+            'data' => $store
+        ]);
+    }
 }

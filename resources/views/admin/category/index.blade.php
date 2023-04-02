@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-right">
-                    <button class="btn btn-info">Add</button>
+                    <button class="btn btn-info" id="add">Add</button>
                 </div>
             </div>
             <div class="card-body">
@@ -22,6 +22,8 @@
             </div>
         </div>
     </div>
+
+    @include('admin.category.modal')
 @endsection
 
 @push('styles')
