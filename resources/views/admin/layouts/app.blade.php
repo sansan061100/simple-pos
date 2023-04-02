@@ -7,6 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <head>
     @include('admin.layouts._head')
+    @stack('styles')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -53,6 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- REQUIRED SCRIPTS -->
     @include('admin.layouts._scripts')
+    @stack('scripts')
 </body>
 
 </html>
