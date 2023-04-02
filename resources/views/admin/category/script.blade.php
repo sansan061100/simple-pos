@@ -13,6 +13,13 @@
             {
                 data: 'name',
             },
+            {
+                mData: 'id',
+                render: function(data, type, row, meta) {
+                    return `<button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteData" data-id="${data}">Delete</button>`;
+                }
+            }
         ]
     });
 
@@ -20,6 +27,22 @@
     $('#add').on('click', function() {
         $('.modal-title').text('Add Category');
         $('#modal-store').modal('show');
+        removeValidations();
+    });
+
+    $('#table').on('click', '.editData', function() {
+        removeValidations();
+        let id = $(this).data('id');
+        $.ajax({
+            url: BASE_URL + '/admin/category/' + id + '/edit',
+            type: "GET",
+            success: function(result) {
+                $('.modal-title').text('Edit Category');
+                $('#modal-store').modal('show');
+                $('#form-store').find('input[name="name"]').val(result.name);
+                $('#form-store').find('input[name="id"]').val(result.id);
+            }
+        })
     });
 
     // submit form
@@ -35,6 +58,7 @@
             data: data,
             success: function(result) {
                 successNotif(result.message);
+                $('#table').DataTable().ajax.reload();
                 $('#modal-store').modal('hide');
             },
             error: function(error) {

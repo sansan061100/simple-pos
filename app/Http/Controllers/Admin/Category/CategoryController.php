@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|unique:category,name,' . $request->id,
         ]);
 
         $store = Category::updateOrCreate([
@@ -36,5 +36,12 @@ class CategoryController extends Controller
             'message' => $request->id == null ? 'Category created successfully' : 'Category updated successfully',
             'data' => $store
         ]);
+    }
+
+    public function edit($id)
+    {
+        $findCategory = Category::find($id);
+
+        return $findCategory;
     }
 }

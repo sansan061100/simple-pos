@@ -6,4 +6,4 @@
 <script src="{{ asset('') }}dist/js/adminlte.min.js"></script>
 <script src="{{ asset('') }}plugins/sweetalert2/sweetalert2.min.js"></script>
 
-<script src="{{ asset('') }}dist/js/app.js"></script>
+<script src="{{ asset('') }}dist/js/app.js?v={{ microtime() }}"></script>

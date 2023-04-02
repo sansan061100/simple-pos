@@ -13,7 +13,7 @@ $.ajaxSetup({
 function removeValidations() {
     $('.is-valid').removeClass('is-valid');
     $('.is-invalid').removeClass('is-invalid');
-
+    $('#form-store').trigger('reset');
     $('.invalid-feedback').remove();
 }
 
