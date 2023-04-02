@@ -10,10 +10,10 @@ $.ajaxSetup({
 
 
 // remove is-valid and is-invalid class
-function removeValidations() {
+function removeValidations(form = 'form-store') {
     $('.is-valid').removeClass('is-valid');
     $('.is-invalid').removeClass('is-invalid');
-    $('#form-store').trigger('reset');
+    $('#' + form).trigger('reset');
     $('.invalid-feedback').remove();
 }
 
@@ -38,6 +38,9 @@ const successNotif = (message) => {
     });
 }
 
+// current url delete character # and ?
+const CURRENT_URL = window.location.href.replace(/#.*$/, '').replace(/\?.*$/, '');
+
 const errorNotif = (message) => {
     NotifAlert.fire({
         icon: 'error',
@@ -45,3 +48,48 @@ const errorNotif = (message) => {
     });
 }
 
+const storeData = (args) => {
+    let defaultParams = {
+        url: CURRENT_URL,
+        data: {},
+        table: 'table',
+        modal: 'modal-store',
+        form: 'form-store'
+    };
+
+    let params = Object.assign(defaultParams, args);
+
+    $.ajax({
+        url: BASE_URL + '/admin/category',
+        type: "POST",
+        data: params.data,
+        success: function (result) {
+            successNotif(result.message);
+            $('#' + params.table).DataTable().ajax.reload();
+            $('#' + params.modal).modal('hide');
+        },
+        error: function (error) {
+            let res = error.responseJSON;
+
+            if (error.status == 422) {
+                errorNotif('Please check your input');
+                $.each(res.errors, function (key, value) {
+                    $('#' + params.form).find('input[name="' + key + '"]').addClass(
+                        'is-invalid').removeClass('is-valid').after(
+                            '<span class="invalid-feedback">' + value + '</span>');
+
+                    $('#' + params.form).find('textare[name="' + key + '"]').addClass(
+                        'is-invalid').removeClass('is-valid').after(
+                            '<span class="invalid-feedback">' + value + '</span>');
+
+                    $('#' + params.form).find('select[name="' + key + '"]').addClass(
+                        'is-invalid').removeClass('is-valid').after(
+                            '<span class="invalid-feedback">' + value + '</span>');
+                });
+            } else {
+                errorNotif(res.message);
+            }
+        }
+    })
+
+}
