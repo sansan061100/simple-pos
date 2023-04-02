@@ -39,10 +39,14 @@ class ProductController extends Controller
             'category.required' => 'The category field is required.'
         ]);
 
+
+
         // check if $request->photo is not empty
         $photo = [];
         if ($request->hasFile('photo')) {
+
             $filePhoto = $request->file('photo');
+
             $photo = time() . '.' . $filePhoto->getClientOriginalExtension();
 
             $upload = Storage::disk('public')->putFileAs('product', $filePhoto, $photo);
@@ -50,6 +54,15 @@ class ProductController extends Controller
             $photo = [
                 'photo' => $photo
             ];
+
+            // delete old photo
+            if ($request->id != null) {
+                $findProduct = Product::find($request->id);
+
+                if ($findProduct->photo != null) {
+                    Storage::disk('public')->delete('product/' . $findProduct->photo);
+                }
+            }
         }
 
         // delete Rp and . from $request->purchase_price and convert to integer
@@ -91,6 +104,10 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $findProduct = Product::find($id);
+
+        if ($findProduct->photo != null) {
+            Storage::disk('public')->delete('product/' . $findProduct->photo);
+        }
 
         if ($findProduct) {
             $findProduct->delete();
