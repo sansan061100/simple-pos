@@ -39,6 +39,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('admin/product') }}"
+                        class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Product
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('admin/user') }}"
                         class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>

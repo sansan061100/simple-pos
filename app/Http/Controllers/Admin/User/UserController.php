@@ -60,20 +60,20 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $finduser = User::find($id);
+        $findUser = User::find($id);
 
         return response()->json([
             'status' => 'success',
-            'data' => $finduser
+            'data' => $findUser
         ]);
     }
 
     public function destroy($id)
     {
-        $finduser = User::find($id);
+        $findUser = User::find($id);
 
-        if ($finduser) {
-            $finduser->delete();
+        if ($findUser) {
+            $findUser->delete();
             return response()->json([
                 'status' => 'success',
                 'message' => 'User deleted successfully',
