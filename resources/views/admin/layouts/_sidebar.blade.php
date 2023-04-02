@@ -21,15 +21,17 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ url('admin/dashboard') }}"
+                        class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
+                    <a href="{{ url('admin/category') }}"
+                        class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Category
@@ -37,32 +39,36 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ url('admin/user') }}"
+                        class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
                             User
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/customer') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ url('admin/customer') }}"
+                        class="nav-link {{ request()->is('admin/customer') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-address-book"></i>
                         <p>
                             Customer
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/transaction') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ url('admin/transaction') }}"
+                        class="nav-link {{ request()->is('admin/transaction') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Transaction
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ request()->is('admin/report') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="{{ url('admin/report') }}"
+                        class="nav-link {{ request()->is('admin/report') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file-alt"></i>
                         <p>
                             Report
                         </p>
