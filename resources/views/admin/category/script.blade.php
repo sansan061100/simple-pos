@@ -1,26 +1,23 @@
 <script>
-    // init datatable
-    $('#table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: BASE_URL + '/admin/category',
-        columns: [{
-                mData: 'id',
-                render: function(data, type, row, meta) {
-                    return meta.row + meta.settings._iDisplayStart + 1;
-                }
-            },
-            {
-                data: 'name',
-            },
-            {
-                mData: 'id',
-                render: function(data, type, row, meta) {
-                    return `<button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>
-                            <button class="btn btn-danger btn-sm deleteData" data-id="${data}">Delete</button>`;
-                }
+    let columns = [{
+            mData: 'id',
+            render: function(data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
             }
-        ]
+        },
+        {
+            data: 'name',
+        },
+        {
+            mData: 'id',
+            render: function(data, type, row, meta) {
+                return `<button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>
+                            <button class="btn btn-danger btn-sm deleteData" data-id="${data}">Delete</button>`;
+            }
+        }
+    ]
+    initDatatable({
+        columns: columns,
     });
 
     // button add modal

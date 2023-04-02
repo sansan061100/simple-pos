@@ -31,6 +31,7 @@ const NotifAlert = Swal.mixin({
     timer: 3000
 });
 
+// success notification sweetalert2
 const successNotif = (message) => {
     NotifAlert.fire({
         icon: 'success',
@@ -38,9 +39,7 @@ const successNotif = (message) => {
     });
 }
 
-// current url delete character # and ?
-const CURRENT_URL = window.location.href.replace(/#.*$/, '').replace(/\?.*$/, '');
-
+// error notification sweetalert2
 const errorNotif = (message) => {
     NotifAlert.fire({
         icon: 'error',
@@ -48,6 +47,10 @@ const errorNotif = (message) => {
     });
 }
 
+// current url delete character # and ?
+const CURRENT_URL = window.location.href.replace(/#.*$/, '').replace(/\?.*$/, '');
+
+// store data
 const storeData = (args) => {
     let defaultParams = {
         url: CURRENT_URL,
@@ -92,4 +95,28 @@ const storeData = (args) => {
         }
     })
 
+}
+
+// init datatable
+const initDatatable = (args) => {
+    let defaultParams = {
+        url: CURRENT_URL,
+        table: 'table',
+        columns: [],
+        order: [],
+    };
+
+    let params = Object.assign(defaultParams, args);
+
+    $('#' + params.table).DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: params.url,
+            type: 'GET',
+        },
+        columns: params.columns,
+        order: params.order,
+        responsive: true,
+    });
 }
