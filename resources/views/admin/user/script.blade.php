@@ -9,6 +9,12 @@
             data: 'name',
         },
         {
+            mData: 'role',
+            render: function(data, type, row, meta) {
+                return data == 1 ? 'Admin' : 'Cashier';
+            }
+        },
+        {
             mData: 'id',
             render: function(data, type, row, meta) {
                 return `<button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>
@@ -23,7 +29,7 @@
     // button add modal
     $('#add').on('click', function() {
         $('#form-store').find('input[name="id"]').val('');
-        $('.modal-title').text('Add Category');
+        $('.modal-title').text('Add User');
         $('#modal-store').modal('show');
         removeValidations();
     });
@@ -35,9 +41,11 @@
             url: CURRENT_URL + '/' + id + '/edit',
             type: "GET",
             success: function(result) {
-                $('.modal-title').text('Edit Category');
+                $('.modal-title').text('Edit User');
                 $('#modal-store').modal('show');
                 $('#form-store').find('input[name="name"]').val(result.data.name);
+                $('#form-store').find('input[name="username"]').val(result.data.username);
+                $('#form-store').find('select[name="role"]').val(result.data.role);
                 $('#form-store').find('input[name="id"]').val(result.data.id);
             }
         })

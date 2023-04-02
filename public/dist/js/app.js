@@ -63,7 +63,7 @@ const storeData = (args) => {
     let params = Object.assign(defaultParams, args);
 
     $.ajax({
-        url: BASE_URL + '/admin/category',
+        url: params.url,
         type: "POST",
         data: params.data,
         success: function (result) {
