@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +32,11 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('category', CategoryController::class);
+    Route::resource('category', CategoryController::class)->except(['create', 'update', 'show']);
 
-    Route::resource('user', UserController::class);
+    Route::resource('user', UserController::class)->except(['create', 'update', 'show']);
 
-    Route::resource('customer', CustomerController::class);
+    Route::resource('customer', CustomerController::class)->except(['create', 'update', 'show']);
+
+    Route::resource('product', ProductController::class);
 });

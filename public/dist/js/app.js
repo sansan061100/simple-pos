@@ -66,6 +66,10 @@ const storeData = (args) => {
         url: params.url,
         type: "POST",
         data: params.data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: true,
         success: function (result) {
             successNotif(result.message);
             $('#' + params.table).DataTable().ajax.reload();
@@ -144,5 +148,14 @@ const initDatatable = (args) => {
         columns: params.columns,
         order: params.order,
         responsive: true,
+    });
+}
+
+// convert rupiah
+const rupiah = (value) => {
+    return value.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
     });
 }
