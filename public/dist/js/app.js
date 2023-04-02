@@ -97,6 +97,32 @@ const storeData = (args) => {
 
 }
 
+// delete data
+const deleteData = (args) => {
+    let defaultParams = {
+        url: CURRENT_URL,
+        table: 'table',
+    };
+
+    let params = Object.assign(defaultParams, args);
+
+    let konfirmasi = confirm(params.message);
+
+    if (konfirmasi) {
+        $.ajax({
+            url: params.url,
+            type: "DELETE",
+            success: function (result) {
+                successNotif(result.message);
+                $('#' + params.table).DataTable().ajax.reload();
+            },
+            error: function (error) {
+                errorNotif(res.message);
+            }
+        })
+    }
+}
+
 // init datatable
 const initDatatable = (args) => {
     let defaultParams = {

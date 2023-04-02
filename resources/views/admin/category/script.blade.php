@@ -31,7 +31,7 @@
         removeValidations();
         let id = $(this).data('id');
         $.ajax({
-            url: BASE_URL + '/admin/category/' + id + '/edit',
+            url: CURRENT_URL + '/' + id + '/edit',
             type: "GET",
             success: function(result) {
                 $('.modal-title').text('Edit Category');
@@ -44,30 +44,22 @@
 
     $('#table').on('click', '.deleteData', function() {
         let id = $(this).data('id');
-        let konfirmasi = confirm('Are you sure?');
 
-        if (konfirmasi) {
-            $.ajax({
-                url: BASE_URL + '/admin/category/' + id,
-                type: "DELETE",
-                success: function(result) {
-                    successNotif(result.message);
-                    $('#table').DataTable().ajax.reload();
-                },
-                error: function(error) {
-                    errorNotif(res.message);
-                }
-            })
-        }
+        deleteData({
+            url: CURRENT_URL + '/' + id,
+            table: 'table',
+        })
     });
 
     // submit form
     $('#form-store').on('submit', function(e) {
         e.preventDefault();
+
         // setIsValid all input, select, textarea
         setIsValid('#form-store input , #form-store select, #form-store textarea');
 
         let data = $(this).serialize();
+
         storeData({
             data: data,
         })
