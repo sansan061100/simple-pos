@@ -5,6 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="float-right">
+                    <button class="btn btn-primary" id="add-stock">Add Stock</button>
                     <button class="btn btn-info" id="add">Add</button>
                 </div>
             </div>
