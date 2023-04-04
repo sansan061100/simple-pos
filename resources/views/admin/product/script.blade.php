@@ -136,34 +136,52 @@
     // add stock
     $('#add-stock').on('click', function() {
         $('.modal-title-stock').text('Add Stock');
-
+        $('#form-stock select[name="product"]').val(null).trigger('change');
         $('#modal-stock').modal('show');
-        removeValidations();
+        removeValidations('form-stock');
     });
 
     // ajax select2
     $('#form-stock select[name="product"]').select2({
         placeholder: 'Select Product',
+        theme : 'bootstrap4',
         ajax: {
-            url: BASE_URL + '/admin/product/select2',
+            url: BASE_URL + '/admin/api/product',
             dataType: 'json',
             delay: 250,
             data: function(params) {
                 return {
                     q: params.term,
-                    page: params.page || 1
                 }
             },
-            processResults: function(data, params) {
-                params.page = params.page || 1;
+            processResults: function (data, page) {
                 return {
-                    results: data.data,
-                    pagination: {
-                        more: (params.page * 10) < data.total
-                    }
-                }
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.sku + ' - ' + item.name,
+                            id: item.id
+                        };
+                    })
+                };
             },
             cache: true
         }
+    });
+
+    // submit form stock
+    $('#form-stock').on('submit', function(e) {
+        e.preventDefault();
+
+        // setIsValid all input, select, textarea
+        setIsValid('#form-stock input , #form-stock select, #form-stock textarea');
+
+        let data = new FormData(this);
+
+        storeData({
+            data: data,
+            url: BASE_URL + '/admin/stock',
+            modal : 'modal-stock',
+            form : 'form-stock',
+        })
     });
 </script>

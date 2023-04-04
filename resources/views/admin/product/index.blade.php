@@ -36,20 +36,23 @@
 @endsection
 
 @push('styles')
-@include('admin.plugins.datatable-css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
 
-<style>
-    .dropify-wrapper .dropify-message p {
-        font-size: 20px;
-    }
-</style>
+{{-- plugin --}}
+@include('admin.plugins.datatable-css')
+@include('admin.plugins.select2-css')
+@include('admin.plugins.dropify-css')
+
 @endpush
 
 @push('scripts')
-@include('admin.plugins.datatable-js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 
+{{-- plugin --}}
+@include('admin.plugins.datatable-js')
+@include('admin.plugins.select2-js')
+@include('admin.plugins.jquery-mask-js')
+@include('admin.plugins.dropify-js')
+
+{{-- script for this page --}}
 @include('admin.product.script')
+
 @endpush

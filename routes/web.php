@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\Stock\StockController;
 use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,8 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::resource('customer', CustomerController::class)->except(['create', 'update', 'show']);
 
     Route::resource('product', ProductController::class);
+
+    Route::post('stock', [StockController::class, 'store']);
 
     Route::prefix('api')->group(function () {
         Route::get('product', [ApiController::class, 'product']);
