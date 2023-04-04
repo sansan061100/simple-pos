@@ -40,8 +40,6 @@ class ProductController extends Controller
             'category.required' => 'The category field is required.'
         ]);
 
-
-
         // check if $request->photo is not empty
         $photo = [];
         if ($request->hasFile('photo')) {
@@ -117,5 +115,18 @@ class ProductController extends Controller
                 'message' => 'Product deleted successfully',
             ]);
         }
+    }
+
+    public function show($id)
+    {
+        $findProduct = Product::select('product.*')
+            ->category()
+            ->stock()
+            ->where('product.id', $id)
+            ->first();
+        $data['title'] = $findProduct->sku . ' - ' . $findProduct->name;
+        $data['product'] = $findProduct;
+
+        return view('admin.product.show', $data);
     }
 }
