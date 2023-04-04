@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Api\ApiController;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
@@ -39,4 +40,8 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::resource('customer', CustomerController::class)->except(['create', 'update', 'show']);
 
     Route::resource('product', ProductController::class);
+
+    Route::prefix('api')->group(function () {
+        Route::get('product', [ApiController::class, 'product']);
+    });
 });

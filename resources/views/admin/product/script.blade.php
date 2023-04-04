@@ -7,6 +7,13 @@
             groupSeparator: ".",
             rightAlign: false,
         })
+
+        $('.numericInput').inputmask({
+            alias: "currency",
+            digits: 0,
+            groupSeparator: ".",
+            rightAlign: false,
+        })
     })
 
     let columns = [{
@@ -112,7 +119,7 @@
         })
     });
 
-    // submit form
+    // submit form store
     $('#form-store').on('submit', function(e) {
         e.preventDefault();
 
@@ -124,5 +131,39 @@
         storeData({
             data: data,
         })
+    });
+
+    // add stock
+    $('#add-stock').on('click', function() {
+        $('.modal-title-stock').text('Add Stock');
+
+        $('#modal-stock').modal('show');
+        removeValidations();
+    });
+
+    // ajax select2
+    $('#form-stock select[name="product"]').select2({
+        placeholder: 'Select Product',
+        ajax: {
+            url: BASE_URL + '/admin/product/select2',
+            dataType: 'json',
+            delay: 250,
+            data: function(params) {
+                return {
+                    q: params.term,
+                    page: params.page || 1
+                }
+            },
+            processResults: function(data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.data,
+                    pagination: {
+                        more: (params.page * 10) < data.total
+                    }
+                }
+            },
+            cache: true
+        }
     });
 </script>
