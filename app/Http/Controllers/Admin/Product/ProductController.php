@@ -15,9 +15,10 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             $product = Product::leftJoin('category', 'category.id', '=', 'product.category_id')
-                ->select('product.*', 'category.name as category');
+                ->leftJoin('stock', 'stock.product_id', '=', 'product.id')
+                ->selectRaw('product.*, category.name as category, SUM(IF(stock.status = 1, stock.qty,0)) - SUM(IF(stock.status = 0, stock.qty,0)) as stock')
+                ->groupBy('product.id');
             return DataTables::of($product)
-
                 ->make(true);
         }
 

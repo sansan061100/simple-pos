@@ -53,6 +53,15 @@
             }
         },
         {
+            mData: 'stock',
+            render: function(data, type, row, meta) {
+                // convert to format example 1.000
+                return data == 0 ? `<span class="badge badge-danger">Out of Stock</span>` :
+                data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            },
+            searchable: false,
+        },
+        {
             mData: 'id',
             render: function(data, type, row, meta) {
                 return `<button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>

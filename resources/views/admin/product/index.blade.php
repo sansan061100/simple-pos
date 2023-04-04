@@ -21,6 +21,7 @@
                             <th>Category</th>
                             <th>Purchase Price</th>
                             <th>Selling Price</th>
+                            <th>Available Stock</th>
                             <th>Action</th>
                         </tr>
                     </thead>
