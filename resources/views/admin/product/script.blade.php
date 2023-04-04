@@ -86,7 +86,7 @@
         // reset dropify
         $('.dropify').off('change');
         $('.dropify').dropify();
-        $('.modal-title').text('Add Category');
+        $('.modal-title').text('Add Product');
         $('#modal-store').modal('show');
         removeValidations();
     });
@@ -101,7 +101,7 @@
                 let img = result.data.photo ? BASE_URL + '/storage/product/' + result.data.photo :
                     '';
 
-                $('.modal-title').text('Edit Category');
+                $('.modal-title').text('Edit Product');
                 $('#modal-store').modal('show');
                 $('#photo').html(`
                     <label>Photo</label>
