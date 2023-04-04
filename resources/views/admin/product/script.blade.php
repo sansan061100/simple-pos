@@ -64,8 +64,10 @@
         {
             mData: 'id',
             render: function(data, type, row, meta) {
-                return `<button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>
-                            <button class="btn btn-danger btn-sm deleteData" data-id="${data}">Delete</button>`;
+                return `
+                <a class="btn btn-warning btn-sm" href="${CURRENT_URL+'/'+data}">Detail</a>
+                <button class="btn btn-info btn-sm editData" data-id="${data}">Edit</button>
+                <button class="btn btn-danger btn-sm deleteData" data-id="${data}">Delete</button>`;
             }
         }
     ]
