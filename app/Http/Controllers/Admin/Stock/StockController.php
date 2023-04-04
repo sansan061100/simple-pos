@@ -5,9 +5,24 @@ namespace App\Http\Controllers\Admin\Stock;
 use App\Http\Controllers\Controller;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class StockController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $stock = Stock::where('product_id', $request->product)
+                ->where('status', $request->status);
+
+            return DataTables::of($stock)
+                ->make(true);
+        }
+
+        abort(404);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

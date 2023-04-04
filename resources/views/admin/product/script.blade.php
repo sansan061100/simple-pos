@@ -57,7 +57,7 @@
             render: function(data, type, row, meta) {
                 // convert to format example 1.000
                 return data == 0 ? `<span class="badge badge-danger">Out of Stock</span>` :
-                data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                    data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
             },
             searchable: false,
         },
@@ -71,6 +71,7 @@
             }
         }
     ]
+
     initDatatable({
         columns: columns,
     });
@@ -155,7 +156,7 @@
     // ajax select2
     $('#form-stock select[name="product"]').select2({
         placeholder: 'Select Product',
-        theme : 'bootstrap4',
+        theme: 'bootstrap4',
         ajax: {
             url: BASE_URL + '/admin/api/product',
             dataType: 'json',
@@ -165,9 +166,9 @@
                     q: params.term,
                 }
             },
-            processResults: function (data, page) {
+            processResults: function(data, page) {
                 return {
-                    results: $.map(data, function (item) {
+                    results: $.map(data, function(item) {
                         return {
                             text: item.sku + ' - ' + item.name,
                             id: item.id
@@ -191,8 +192,8 @@
         storeData({
             data: data,
             url: BASE_URL + '/admin/stock',
-            modal : 'modal-stock',
-            form : 'form-stock',
+            modal: 'modal-stock',
+            form: 'form-stock',
         })
     });
 </script>

@@ -42,7 +42,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('product', ProductController::class);
 
-    Route::post('stock', [StockController::class, 'store']);
+    Route::resource('stock', StockController::class);
 
     Route::prefix('api')->group(function () {
         Route::get('product', [ApiController::class, 'product']);
