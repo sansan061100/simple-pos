@@ -14,9 +14,9 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $product = Product::leftJoin('category', 'category.id', '=', 'product.category_id')
-                ->leftJoin('stock', 'stock.product_id', '=', 'product.id')
-                ->selectRaw('product.*, category.name as category, SUM(IF(stock.status = 1, stock.qty,0)) - SUM(IF(stock.status = 0, stock.qty,0)) as stock')
+            $product = Product::select('product.*')
+                ->category()
+                ->stock()
                 ->groupBy('product.id');
             return DataTables::of($product)
                 ->make(true);
