@@ -9,6 +9,12 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        # code...
+        $data['title'] = 'Transaction';
+
+        return view('admin.transaction.index', $data);
+    }
+
+    public function create()
+    {
     }
 }
