@@ -1,32 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Transaction;
+namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Customer;
-use App\Models\Product;
 use App\Models\Stock;
-use App\Models\Transaction;
-use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TransactionController extends Controller
+class OrderController extends Controller
 {
     public function index()
     {
-        $data['title'] = 'Transaction';
+        $data['title'] = 'Order';
 
-        return view('admin.transaction.index', $data);
+        return view('admin.order.index', $data);
     }
 
     public function create()
     {
-        $data['title'] = 'Create Transaction';
+        $data['title'] = 'Create Order';
         $data['category'] = Category::all();
         $data['customer'] = Customer::all();
-        return view('admin.transaction.create', $data);
+        return view('admin.order.create', $data);
     }
 
     public function store(Request $request)
@@ -43,20 +40,20 @@ class TransactionController extends Controller
                     'product_id' => $item['id'],
                     'qty' => $item['qty'],
                     'selling_price' => $item['price'],
-                    'description' => 'Transaction',
+                    'description' => 'Order',
                     'status' => config('constants.stock.out'),
                 ]);
 
-                $detail[] = new TransactionDetail([
+                $detail[] = new OrderDetail([
                     'discount' => $item['discount'],
                     'stock_id' => $stock->id,
                 ]);
             }
 
-            $transaction = Transaction::create([
+            $Order = Order::create([
                 'customer_id' => $request->customer_id,
                 'total' => $total,
-                'status' => config('constants.transaction.pending'),
+                'status' => config('constants.Order.pending'),
             ]);
         } catch (\Throwable $th) {
             //throw $th;

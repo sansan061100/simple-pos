@@ -5,12 +5,10 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
+use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Stock\StockController;
-use App\Http\Controllers\Admin\Transaction\TransactionController;
 use App\Http\Controllers\Admin\User\UserController;
-use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,7 +43,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('product', ProductController::class)->except(['create', 'update']);
 
-    Route::resource('transaction', TransactionController::class)->except(['edit', 'update', 'destroy']);
+    Route::resource('order', OrderController::class)->except(['edit', 'update', 'destroy']);
 
     Route::resource('stock', StockController::class);
 

@@ -69,10 +69,10 @@
                                 </li>
                             @endforeach
                         </ul>
-                        @include('admin.transaction.components.product')
+                        @include('admin.order.components.product')
                     </div>
                     <div class="col-md-4">
-                        @include('admin.transaction.components.cart')
+                        @include('admin.order.components.cart')
                         <div class="box">
                             {{-- <dl class="dlist-align">
                                 <dt>Tax: </dt>
@@ -110,8 +110,8 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="{{ route('admin.transaction.index') }}"
-                                        class="btn btn-danger btn-lg btn-block"><i class="fa fa-times-circle "></i> Cancel
+                                    <a href="{{ route('admin.order.index') }}" class="btn btn-danger btn-lg btn-block"><i
+                                            class="fa fa-times-circle "></i> Cancel
                                     </a>
                                 </div>
                                 <div class="col-md-6">
