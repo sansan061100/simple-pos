@@ -1,6 +1,4 @@
 document.addEventListener('alpine:init', async () => {
-
-
     Alpine.store('pos', {
         products: [],
         emptyProducts: false,
@@ -11,6 +9,12 @@ document.addEventListener('alpine:init', async () => {
         subTotal: 0,
         total: 0,
         discount: 0,
+        customer: '',
+        // invoiceCode: '',
+        // dateTime: '',
+        async init() {
+            this.fetchProduct()
+        },
         async fetchProduct() {
             let url = BASE_URL + '/admin/api/product' + '?q=' + this.search + '&category=' +
                 this.category
@@ -77,6 +81,34 @@ document.addEventListener('alpine:init', async () => {
             this.subTotalCount()
             let discount = this.discount / 100 * this.subTotal
             this.total = this.subTotal - discount
-        }
+        },
+        async checkout() {
+            let data = {
+                cart: this.cart,
+                discount: this.discount,
+                total: this.total,
+                customer: this.customer,
+            }
+
+            const response = await axios.post(BASE_URL + '/admin/transaction', data)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                })
+        },
+        // async dateTimeTick() {
+        //     let date = new Date()
+        //     let day = date.getDate()
+        //     let month = date.getMonth() + 1
+        //     let year = date.getFullYear()
+        //     let hour = date.getHours()
+        //     let minute = date.getMinutes()
+        //     let second = date.getSeconds()
+
+        //     this.dateTime = day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' +
+        //         second
+        // }
     });
 })

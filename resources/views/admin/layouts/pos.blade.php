@@ -19,7 +19,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container-fluid">
-                <a href="../../index3.html" class="navbar-brand">
+                <a href="" class="navbar-brand">
                     <span class="brand-text font-weight-bold">SimplePos </span>
                 </a>
             </div>
