@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Stock\StockController;
 use App\Http\Controllers\Admin\Transaction\TransactionController;
 use App\Http\Controllers\Admin\User\UserController;
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +52,10 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::prefix('api')->group(function () {
         Route::get('product', [ApiController::class, 'product']);
     });
+});
+
+
+Route::get('tes', function () {
+    // ALL ENV
+    return $env = config('app');
 });

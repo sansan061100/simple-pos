@@ -67,7 +67,7 @@
         // setIsValid all input, select, textarea
         setIsValid('#form-store input , #form-store select, #form-store textarea');
 
-        let data = $(this).serialize();
+        let data = new FormData(this);
 
         storeData({
             data: data,

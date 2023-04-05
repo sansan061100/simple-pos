@@ -8,6 +8,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
     @include('admin.layouts._head')
     @stack('styles')
+    <style>
+        body {
+            height: 100% !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -44,7 +49,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.content-wrapper -->
 
         <!-- Main Footer -->
-        @include('admin.layouts._footer')
     </div>
     <!-- ./wrapper -->
 
