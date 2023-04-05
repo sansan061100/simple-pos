@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">
             <div class="float-right">
-                <button class="btn btn-info" id="add">Add</button>
+                <a class="btn btn-info" href="{{ route('admin.transaction.create') }}">Add</a>
             </div>
         </div>
         <div class="card-body">

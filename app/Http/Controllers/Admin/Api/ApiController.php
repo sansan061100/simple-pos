@@ -10,8 +10,15 @@ class ApiController extends Controller
 {
     public function product(Request $request)
     {
-        $product = Product::where('name', 'like', '%' . $request->q . '%')
-            ->orWhere('sku', 'like', '%' . $request->q . '%')
+        $product = Product::when($request->category, function ($query) use ($request) {
+            $query->where('category_id', $request->category);
+        })
+            ->where(function ($query) use ($request) {
+                if ($request->q) {
+                    $query->where('name', 'like', '%' . $request->q . '%')
+                        ->orWhere('sku', 'like', '%' . $request->q . '%');
+                }
+            })
             ->limit(20)
             ->get();
 
