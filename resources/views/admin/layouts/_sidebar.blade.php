@@ -18,8 +18,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ url('admin/dashboard') }}"
                         class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
@@ -40,7 +39,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('admin/product') }}"
-                        class="nav-link {{ request()->is('admin/product') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/product') || request()->is('admin/product/*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
                             Product
