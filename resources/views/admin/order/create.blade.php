@@ -98,12 +98,34 @@
                                 </dd>
                             </dl>
                             <dl class="dlist-align">
+                                <dt>Paid:</dt>
+                                <dd class="text-right">
+                                    <div class="input-group" x-init="paid = $($refs.paid).inputmask({
+                                        alias: 'currency',
+                                        prefix: 'Rp ',
+                                        digits: 0,
+                                        groupSeparator: '.',
+                                        rightAlign: false,
+                                    });
+                                    paid.on('keyup', (event) => {
+                                        $store.pos.paid = event.target.value;
+                                        $store.pos.calculate();
+                                    });">
+                                        <input type="text" class="form-control" x-ref="paid">
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl class="dlist-align">
                                 <dt>Sub Total:</dt>
                                 <h5 class="text-right" x-text="rupiah($store.pos.subTotal)"></h5>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Total: </dt>
                                 <dd class="text-right h4" x-text="rupiah($store.pos.total)"></dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Charge: </dt>
+                                <dd class="text-right h4" x-text="rupiah($store.pos.charge)"></dd>
                             </dl>
 
                             <hr>
@@ -135,6 +157,7 @@
 
 @push('scripts')
     @include('admin.plugins.select2-js')
+    @include('admin.plugins.jquery-mask-js')
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script>

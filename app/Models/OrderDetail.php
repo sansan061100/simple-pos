@@ -12,4 +12,6 @@ class OrderDetail extends Model
     protected $table = 'order_detail';
 
     protected $guarded = ['id'];
+
+    public $timestamps = false;
 }

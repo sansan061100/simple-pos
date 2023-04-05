@@ -10,6 +10,8 @@ document.addEventListener('alpine:init', async () => {
         total: 0,
         discount: 0,
         customer: '',
+        paid: '',
+        charge: 0,
         // invoiceCode: '',
         // dateTime: '',
         async init() {
@@ -38,7 +40,7 @@ document.addEventListener('alpine:init', async () => {
                 name: product.name,
                 price: product.selling_price,
                 qty: 1,
-                image: imageUrl(product.photo)
+                image: imageUrl(product.photo),
             }
 
             // check if product already in cart
@@ -81,6 +83,11 @@ document.addEventListener('alpine:init', async () => {
             this.subTotalCount()
             let discount = this.discount / 100 * this.subTotal
             this.total = this.subTotal - discount
+            let paid = 0;
+            // remove dot and Rp
+            paid = this.paid.replace(/[^,\d]/g, '').toString()
+
+            this.charge = (paid - this.total) < 0 ? 0 : paid - this.total
         },
         async checkout() {
             let data = {
@@ -88,14 +95,18 @@ document.addEventListener('alpine:init', async () => {
                 discount: this.discount,
                 total: this.total,
                 customer: this.customer,
+                paid: this.paid.replace(/[^,\d]/g, '').toString()
             }
 
-            const response = await axios.post(BASE_URL + '/admin/transaction', data)
+            const response = await axios.post(BASE_URL + '/admin/order', data)
                 .then(response => {
-                    console.log(response.data)
+                    successNotif(response.data.message)
+                    setTimeout(() => {
+                        window.location.href = response.data.redirect
+                    }, 1000);
                 })
                 .catch(error => {
-                    console.log(error.response.data)
+                    errorNotif(error.message)
                 })
         },
         // async dateTimeTick() {
