@@ -43,7 +43,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('product', ProductController::class)->except(['create', 'update']);
 
-    Route::resource('order', OrderController::class)->except(['edit', 'update', 'destroy']);
+    Route::resource('order', OrderController::class)->except(['edit', 'destroy']);
 
     Route::resource('stock', StockController::class);
 

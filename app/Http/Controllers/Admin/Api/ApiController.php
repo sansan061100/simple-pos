@@ -20,6 +20,11 @@ class ApiController extends Controller
                         ->orWhere('sku', 'like', '%' . $request->q . '%');
                 }
             })
+            ->select('product.*')
+            ->category()
+            ->stock()
+            ->avaragePurchasePrice()
+            ->groupBy('product.id')
             ->limit(20)
             ->get();
 

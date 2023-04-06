@@ -14,4 +14,9 @@ class OrderDetail extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class, 'stock_id');
+    }
 }

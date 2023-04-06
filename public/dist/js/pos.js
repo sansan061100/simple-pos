@@ -41,6 +41,7 @@ document.addEventListener('alpine:init', async () => {
                 price: product.selling_price,
                 qty: 1,
                 image: imageUrl(product.photo),
+                purchase_price: product.purchase_price,
             }
 
             // check if product already in cart
@@ -84,21 +85,18 @@ document.addEventListener('alpine:init', async () => {
             let discount = this.discount / 100 * this.subTotal
             this.total = this.subTotal - discount
             let paid = 0;
+
             // remove dot and Rp
             paid = this.paid.replace(/[^,\d]/g, '').toString()
 
             this.charge = (paid - this.total) < 0 ? 0 : paid - this.total
         },
         async checkout() {
-
             let paid = this.paid.replace(/[^,\d]/g, '').toString()
-            console.log(paid < this.total ? 'true' : 'false')
             if (this.cart.length == 0) {
                 errorNotif('Cart is empty')
                 return
             }
-
-
 
             if (paid < this.total) {
                 errorNotif('Paid is less than total')

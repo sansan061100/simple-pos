@@ -10,6 +10,7 @@ use App\Models\OrderDetail;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Termwind\Components\Raw;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -59,6 +60,7 @@ class OrderController extends Controller
                 $stock = Stock::create([
                     'product_id' => $item['id'],
                     'qty' => $item['qty'],
+                    'purchase_price' => $item['purchase_price'],
                     'selling_price' => $item['price'],
                     'description' => 'Order',
                     'status' => config('constants.stock.out'),
