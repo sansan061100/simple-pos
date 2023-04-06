@@ -32,7 +32,7 @@ document.addEventListener('alpine:init', async () => {
                     }
                 })
 
-            this.subTotalCount()
+            this.calculate()
         },
         async addToCart(product) {
             let cartData = {
@@ -51,7 +51,7 @@ document.addEventListener('alpine:init', async () => {
                 this.cart.push(cartData)
             }
 
-            this.subTotalCount()
+            this.calculate()
         },
         async changeQty(id, qty) {
             let index = this.cart.findIndex(item => item.id == id)
@@ -90,6 +90,21 @@ document.addEventListener('alpine:init', async () => {
             this.charge = (paid - this.total) < 0 ? 0 : paid - this.total
         },
         async checkout() {
+
+            let paid = this.paid.replace(/[^,\d]/g, '').toString()
+            console.log(paid < this.total ? 'true' : 'false')
+            if (this.cart.length == 0) {
+                errorNotif('Cart is empty')
+                return
+            }
+
+
+
+            if (paid < this.total) {
+                errorNotif('Paid is less than total')
+                return
+            }
+
             let data = {
                 cart: this.cart,
                 discount: this.discount,
