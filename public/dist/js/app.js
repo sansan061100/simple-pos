@@ -23,28 +23,17 @@ function setIsValid(element) {
     $(element).addClass('is-valid').removeClass('is-invalid');
 }
 
-// init sweetalert2
-const NotifAlert = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000
-});
+//set alertify
+alertify.set('notifier', 'position', 'top-right');
 
 // success notification sweetalert2
 const successNotif = (message) => {
-    NotifAlert.fire({
-        icon: 'success',
-        title: message
-    });
+    alertify.success(message).delay(2);
 }
 
 // error notification sweetalert2
 const errorNotif = (message) => {
-    NotifAlert.fire({
-        icon: 'error',
-        title: message
-    });
+    alertify.error(message).delay(2);
 }
 
 // current url delete character # and ?

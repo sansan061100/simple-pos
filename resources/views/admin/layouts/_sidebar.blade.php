@@ -65,11 +65,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/transaction') }}"
-                        class="nav-link {{ request()->is('admin/transaction') ? 'active' : '' }}">
+                    <a href="{{ url('admin/order') }}"
+                        class="nav-link {{ request()->is('admin/order') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
-                            Transaction
+                            Order
                         </p>
                     </a>
                 </li>
