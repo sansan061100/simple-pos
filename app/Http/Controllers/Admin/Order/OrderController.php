@@ -10,13 +10,30 @@ use App\Models\OrderDetail;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $data['title'] = 'Order';
+        if ($request->ajax()) {
+            $order = Order::leftJoin('customer', 'customer.id', '=', 'order.customer_id')
+                ->select('order.*', 'customer.name as customer');
 
+            return DataTables::of($order)
+                ->filter(function ($query) use ($request) {
+                    $array = ['invoice_code', 'customer.name'];
+
+                    foreach ($array as $key => $item) {
+                        if ($key == 0) {
+                            $query->where($item, 'like', '%' . $request->search['value'] . '%');
+                        } else {
+                            $query->orWhere($item, 'like', '%' . $request->search['value'] . '%');
+                        }
+                    }
+                })->toJson();
+        }
         return view('admin.order.index', $data);
     }
 
@@ -67,6 +84,7 @@ class OrderController extends Controller
                 'user_id' => auth()->user()->id,
                 'updated_at' => now(),
             ]);
+
             $order->detail()->saveMany($detail);
 
             DB::commit();
