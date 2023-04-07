@@ -13,16 +13,16 @@
         </template>
 
         <template x-for="product in $store.pos.products" :key="product.id">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <figure class="card card-product" @click="$store.pos.addToCart(product)">
-                    {{-- <span class="badge-new"> NEW </span> --}}
+                    <span class="badge-new" x-text="numeric(product.stock)"></span>
                     <div class="img-wrap">
                         <img :src="imageUrl(product.photo)">
                     </div>
                     <figcaption class="info-wrap">
                         <a href="#" class="title" x-text="product.name"></a>
                         <div class="action-wrap">
-                            <div class="price-wrap h5">
+                            <div class="price-wrap">
                                 <span class="price-new" x-text="rupiah(product.selling_price)"></span>
                             </div> <!-- price-wrap.// -->
                         </div> <!-- action-wrap -->

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\Stock\StockController;
 use App\Http\Controllers\Admin\User\UserController;
+use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,5 +57,17 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
 Route::get('tes', function () {
     // ALL ENV
-    return $env = config('app');
+    // Stock::delete()
+    $produk = Product::where('purchase_price', '>', 0)->get();
+
+    foreach ($produk as $key => $value) {
+        // create stock
+        Stock::create([
+            'product_id' => $value->id,
+            'qty' => 1000,
+            'purchase_price' => $value->purchase_price,
+            'description' => 'Initial Stock',
+            'status' => 1
+        ]);
+    }
 });

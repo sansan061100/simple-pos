@@ -101,4 +101,18 @@ class OrderController extends Controller
             throw $th;
         }
     }
+
+    public function show($id)
+    {
+        $order = Order::with([
+            'detail.stock.product',
+            'customer',
+            'user'
+        ])->where('id', $id)->first();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $order
+        ]);
+    }
 }

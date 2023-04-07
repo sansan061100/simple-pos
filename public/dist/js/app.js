@@ -145,6 +145,11 @@ const rupiah = (value) => {
     return value ? 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : 'Rp. 0';
 }
 
+// convert numeric with dot
+const numeric = (value) => {
+    return value ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") : '0';
+}
+
 const imageUrl = (data) => {
     let img = data ? BASE_URL + '/storage/product/' + data :
         "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=";

@@ -5,71 +5,81 @@
         $invoiceCode = 'INV-' . date('YmdHis');
     @endphp
     <form @submit.prevent="$store.pos.checkout()" method="POST" x-data>
-        <div class="card" x-init="$store.pos.init()">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="">Cashier</label>
-                            <input type="text" disabled value="{{ auth()->user()->name }}" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group" x-init="() => {
-                            select2 = $($refs.select).select2({
-                                theme: 'bootstrap4',
-                            });
-                            select2.on('select2:select', (event) => {
-                                $store.pos.customer = event.target.value;
-                            });
-                        }">
-                            <label for="">Customer</label>
-                            <select class="form-control" x-model="$store.pos.customer" x-ref="select">
-                                <option value="">Customer</option>
-                                @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    {{-- <div class="col-md-3">
-                        <label for="">&nbsp;</label>
-                        <input type="text" readonly class="form-control" x-model="$store.pos.dateTime">
-                    </div> --}}
-                </div>
-            </div>
-        </div>
+
         <section class="section-content padding-y-sm bg-default " x-data>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8 card padding-y-sm card " style="height: 750px;overflow-y: scroll">
+                    <div class="col-md-8">
                         <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            <div class="col-md-12">
+                                <div class="card" x-init="$store.pos.init()">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="">Cashier</label>
+                                                    <input type="text" disabled value="{{ auth()->user()->name }}"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group" x-init="() => {
+                                                    select2 = $($refs.select).select2({
+                                                        theme: 'bootstrap4',
+                                                    });
+                                                    select2.on('select2:select', (event) => {
+                                                        $store.pos.customer = event.target.value;
+                                                    });
+                                                }">
+                                                    <label for="">Customer</label>
+                                                    <select class="form-control" x-model="$store.pos.customer"
+                                                        x-ref="select">
+                                                        <option value="">Customer</option>
+                                                        @foreach ($customer as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="col-md-3">
+                                                <label for="">&nbsp;</label>
+                                                <input type="text" readonly class="form-control" x-model="$store.pos.dateTime">
+                                            </div> --}}
+                                        </div>
                                     </div>
-                                    <input type="search" class="form-control" placeholder="Search..."
-                                        x-model="$store.pos.search" @input="$store.pos.fetchProduct()">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                            </div>
+                                            <input type="search" class="form-control" placeholder="Search..."
+                                                x-model="$store.pos.search" @input="$store.pos.fetchProduct()">
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class=" nav bg radius nav-pills nav-fill mb-3 bg" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active show" data-toggle="pill"
+                                                    @click="$store.pos.category = ''; $store.pos.fetchProduct()">
+                                                    <i class="fa fa-tags pr-2"></i> All</a>
+                                            </li>
+                                            @foreach ($category as $item)
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="pill"
+                                                        @click="$store.pos.category = {{ $item->id }}; $store.pos.fetchProduct()">
+                                                        <i class="fa fa-tags pr-2"></i> {{ $item->name }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                        @include('admin.order.components.product')
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <ul class=" nav bg radius nav-pills nav-fill mb-3 bg" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active show" data-toggle="pill"
-                                    @click="$store.pos.category = ''; $store.pos.fetchProduct()">
-                                    <i class="fa fa-tags pr-2"></i> All</a>
-                            </li>
-                            @foreach ($category as $item)
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="pill"
-                                        @click="$store.pos.category = {{ $item->id }}; $store.pos.fetchProduct()">
-                                        <i class="fa fa-tags pr-2"></i> {{ $item->name }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        @include('admin.order.components.product')
                     </div>
                     <div class="col-md-4">
                         @include('admin.order.components.cart')

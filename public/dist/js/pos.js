@@ -19,7 +19,7 @@ document.addEventListener('alpine:init', async () => {
         },
         async fetchProduct() {
             let url = BASE_URL + '/admin/api/product' + '?q=' + this.search + '&category=' +
-                this.category
+                this.category + '&have_stock=1'
             const response = await axios.get(url)
                 .then(response => {
                     this.loading = false

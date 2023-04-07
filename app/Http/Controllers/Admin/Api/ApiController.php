@@ -16,8 +16,8 @@ class ApiController extends Controller
         })
             ->where(function ($query) use ($request) {
                 if ($request->q) {
-                    $query->where('name', 'like', '%' . $request->q . '%')
-                        ->orWhere('sku', 'like', '%' . $request->q . '%');
+                    $query->where('product.name', 'like', '%' . $request->q . '%')
+                        ->orWhere('product.sku', 'like', '%' . $request->q . '%');
                 }
             })
             ->select('product.*')
@@ -27,6 +27,12 @@ class ApiController extends Controller
             ->groupBy('product.id')
             ->limit(20)
             ->get();
+
+        if ($request->have_stock) {
+            $product = $product->filter(function ($item) {
+                return $item->stock > 0;
+            });
+        }
 
         return response()->json($product);
     }

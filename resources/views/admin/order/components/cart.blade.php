@@ -36,12 +36,14 @@
                                 <td class="text-center">
                                     <div class="m-btn-group m-btn-group--pill btn-group mr-2" role="group"
                                         aria-label="...">
-                                        <button type="button" class="m-btn btn btn-danger"><i class="fa fa-minus"
-                                                @click="$store.pos.changeQty(item.id, -1)"></i></button>
+                                        <button type="button" class="m-btn btn btn-danger"
+                                            @click="$store.pos.changeQty(item.id, -1)"><i
+                                                class="fa fa-minus"></i></button>
                                         <button type="button" class="m-btn btn btn-default" disabled
                                             x-text="item.qty"></button>
-                                        <button type="button" class="m-btn btn btn-success"><i class="fa fa-plus"
-                                                @click="$store.pos.changeQty(item.id, 1)"></i></button>
+                                        <button type="button" class="m-btn btn btn-success"
+                                            @click="$store.pos.changeQty(item.id, 1)"><i
+                                                class="fa fa-plus"></i></button>
                                     </div>
                                 </td>
                                 <td>

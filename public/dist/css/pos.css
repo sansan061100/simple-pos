@@ -2441,7 +2441,7 @@ ul.row-sm {
     border-radius: 0.2rem 0.2rem 0 0;
     overflow: hidden;
     position: relative;
-    height: 200px;
+    height: 150px;
     text-align: center;
 }
 
@@ -2456,7 +2456,7 @@ ul.row-sm {
 
 .card-product .info-wrap {
     overflow: hidden;
-    padding: 15px;
+    padding: 10px;
     border-top: 1px solid #eee;
 }
 
@@ -2466,7 +2466,7 @@ ul.row-sm {
 }
 
 .card-product .bottom-wrap {
-    padding: 15px;
+    padding: 10px;
     border-top: 1px solid #eee;
 }
 
