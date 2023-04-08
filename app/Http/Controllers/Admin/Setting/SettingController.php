@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Services\UploadFileService;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -26,6 +27,11 @@ class SettingController extends Controller
             'favicon' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
+        $setting = Setting::first();
+
+        $logo = UploadFileService::upload($request->file('logo'), 'setting/', $setting?->logo);
+        $favicon = UploadFileService::upload($request->file('favicon'), 'setting/', $setting?->favicon);
+
         $setting = Setting::updateOrCreate(
             ['id' => 1],
             [
@@ -34,8 +40,8 @@ class SettingController extends Controller
                 'address' => $request->address,
                 'phone_number' => $request->phone_number,
                 'email' => $request->email,
-                'logo' => $request->logo ? $this->uploadImage($request->logo, 'setting') : null,
-                'favicon' => $request->favicon ? $this->uploadImage($request->favicon, 'setting') : null,
+                'logo' => $logo,
+                'favicon' => $favicon,
                 'address' => $request->address,
             ]
         );
