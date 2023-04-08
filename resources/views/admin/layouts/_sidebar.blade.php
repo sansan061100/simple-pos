@@ -78,7 +78,7 @@
                         class="nav-link {{ request()->is('admin/report') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
-                            Report
+                            Report (Coming soon)
                         </p>
                     </a>
                 </li>

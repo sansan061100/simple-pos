@@ -36,8 +36,6 @@ class ProductController extends Controller
             'purchase_price' => 'required',
             'selling_price' => 'required',
             'photo' => 'image|mimes:jpeg,png,jpg|max:2048'
-        ], [
-            'category.required' => 'The category field is required.'
         ]);
 
         // check if $request->photo is not empty
@@ -124,6 +122,7 @@ class ProductController extends Controller
             ->stock()
             ->where('product.id', $id)
             ->first();
+
         $data['title'] = $findProduct->sku . ' - ' . $findProduct->name;
         $data['product'] = $findProduct;
 

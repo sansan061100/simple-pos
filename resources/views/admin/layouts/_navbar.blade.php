@@ -16,7 +16,7 @@
         <li class="nav-item dropdown user user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ asset('dist/img/avatar.png') }}" class="user-image img-circle elevation-2 alt="User Image">
-                <span class="hidden-xs">Alexander Pierce</span>
+                <span class="hidden-xs">{{ auth()->user()->name }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i> Profile</a>

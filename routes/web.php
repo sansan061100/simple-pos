@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Stock\StockController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Models\Product;
@@ -37,21 +38,25 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('category', CategoryController::class)->except(['create', 'update', 'show']);
+    Route::middleware('role:1')->group(function () {
+        Route::resource('category', CategoryController::class)->except(['create', 'update', 'show']);
+        Route::resource('user', UserController::class)->except(['create', 'update', 'show']);
+        Route::resource('product', ProductController::class)->except(['create', 'update']);
+        Route::get('setting', [SettingController::class, 'index']);
+        Route::post('setting', [SettingController::class, 'store']);
+    });
 
-    Route::resource('user', UserController::class)->except(['create', 'update', 'show']);
+    Route::middleware('role:1,2')->group(function () {
+        Route::resource('customer', CustomerController::class)->except(['create', 'update', 'show']);
 
-    Route::resource('customer', CustomerController::class)->except(['create', 'update', 'show']);
+        Route::get('order/{id}/print', [OrderController::class, 'print']);
+        Route::resource('order', OrderController::class)->except(['edit', 'destroy']);
 
-    Route::resource('product', ProductController::class)->except(['create', 'update']);
+        Route::resource('stock', StockController::class)->except(['create', 'edit', 'update', 'show']);
 
-    Route::get('order/{id}/print', [OrderController::class, 'print']);
-    Route::resource('order', OrderController::class)->except(['edit', 'destroy']);
-
-    Route::resource('stock', StockController::class);
-
-    Route::prefix('api')->group(function () {
-        Route::get('product', [ApiController::class, 'product']);
+        Route::prefix('api')->group(function () {
+            Route::get('product', [ApiController::class, 'product']);
+        });
     });
 });
 
