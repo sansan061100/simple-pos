@@ -43,7 +43,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::resource('user', UserController::class)->except(['create', 'update', 'show']);
         Route::resource('product', ProductController::class)->except(['create', 'update']);
         Route::get('setting', [SettingController::class, 'index']);
-        Route::post('setting', [SettingController::class, 'store']);
+        Route::post('setting', [SettingController::class, 'store'])->name('setting.store');
     });
 
     Route::middleware('role:1,2')->group(function () {

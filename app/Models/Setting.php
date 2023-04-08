@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
     use HasFactory;
+
+    protected $table = 'setting';
+
+    protected $guarded = [];
+
+    public $timestamps = false;
 }
