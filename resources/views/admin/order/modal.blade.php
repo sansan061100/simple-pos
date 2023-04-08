@@ -1,4 +1,5 @@
 <div class="modal fade" id="modal-order">
+    <input type="hidden" name="id" id="id">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

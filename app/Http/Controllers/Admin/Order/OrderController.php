@@ -157,6 +157,11 @@ class OrderController extends Controller
 
     public function print($id)
     {
-        return view('admin.order.print');
+        $data['order'] = Order::with([
+            'detail.stock.product',
+            'customer',
+            'user'
+        ])->where('id', $id)->first();
+        return view('admin.order.print', $data);
     }
 }

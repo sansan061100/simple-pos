@@ -12,3 +12,8 @@
 <link rel="stylesheet" href="{{ asset('') }}dist/css/adminlte.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+<style>
+    .navbar-nav>.user-menu>.dropdown-menu {
+        width: 200px;
+    }
+</style>

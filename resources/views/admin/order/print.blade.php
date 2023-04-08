@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>12023/00000001</title>
+    <title>{{ $order->invoice_code }}</title>
     <style type="text/css">
         a,
         .no-print,
@@ -37,201 +37,201 @@
             text-align: center;
             cursor: pointer;
         }
+
+        /*Common CSS*/
+        .receipt-template {
+            width: 302px;
+            margin: 0 auto;
+        }
+
+        .receipt-template .text-small {
+            font-size: 10px;
+        }
+
+        .receipt-template .block {
+            display: block;
+        }
+
+        .receipt-template .inline-block {
+            display: inline-block;
+        }
+
+        .receipt-template .bold {
+            font-weight: 700;
+        }
+
+        .receipt-template .italic {
+            font-style: italic;
+        }
+
+        .receipt-template .align-right {
+            text-align: right;
+        }
+
+        .receipt-template .align-center {
+            text-align: center;
+        }
+
+        .receipt-template .main-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0 5px 0;
+            padding: 0;
+        }
+
+        .receipt-template .heading {
+            position: relation;
+        }
+
+        .receipt-template .title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 10px 0 5px 0;
+        }
+
+        .receipt-template .sub-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin: 10px 0 5px 0;
+        }
+
+        .receipt-template table {
+            width: 100%;
+        }
+
+        .receipt-template td,
+        .receipt-template th {
+            font-size: 12px;
+        }
+
+        .receipt-template .info-area {
+            font-size: 12px;
+            line-height: 1.222;
+        }
+
+        .receipt-template .listing-area {
+            line-height: 1.222;
+        }
+
+        .receipt-template .listing-area table {}
+
+        .receipt-template .listing-area table thead tr {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            font-weight: 700;
+        }
+
+        .receipt-template .listing-area table tbody tr {
+            border-top: 1px dashed #000;
+            border-bottom: 1px dashed #000;
+        }
+
+        .receipt-template .listing-area table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .receipt-template .listing-area table td {
+            vertical-align: top;
+        }
+
+        .receipt-template .info-area table {}
+
+        .receipt-template .info-area table thead tr {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        /*Receipt Heading*/
+        .receipt-template .receipt-header {
+            text-align: center;
+        }
+
+        .receipt-template .receipt-header .logo-area {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+
+        .receipt-template .receipt-header .logo-area img.logo {
+            display: inline-block;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .receipt-template .receipt-header .address-area {
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .receipt-template .receipt-header .info {
+            font-size: 12px;
+        }
+
+        .receipt-template .receipt-header .store-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /*Invoice Info Area*/
+        .receipt-template .invoice-info-area {}
+
+        /*Customer Customer Area*/
+        .receipt-template .customer-area {
+            margin-top: 10px;
+        }
+
+        /*Calculation Area*/
+        .receipt-template .calculation-area {
+            border-top: 2px solid #000;
+            font-weight: bold;
+        }
+
+        .receipt-template .calculation-area table td {
+            text-align: right;
+        }
+
+        .receipt-template .calculation-area table td:nth-child(2) {
+            border-bottom: 1px dashed #000;
+        }
+
+        /*Item Listing*/
+        .receipt-template .item-list table tr {}
+
+        /*Barcode Area*/
+        .receipt-template .barcode-area {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .receipt-template .barcode-area img {
+            max-width: 100%;
+            display: inline-block;
+        }
+
+        /*Footer Area*/
+        .receipt-template .footer-area {
+            line-height: 1.222;
+            font-size: 10px;
+        }
+
+        /*Media Query*/
+        @media print {
+            .receipt-template {
+                width: 100%;
+            }
+        }
+
+        @media all and (max-width: 215px) {}
     </style>
 </head>
 
 <body style="background:#ffffff;">
     <div class="col-xs-12 col-md-12">
-        <style id="styles" type="text/css">
-            /*Common CSS*/
-            .receipt-template {
-                width: 302px;
-                margin: 0 auto;
-            }
 
-            .receipt-template .text-small {
-                font-size: 10px;
-            }
-
-            .receipt-template .block {
-                display: block;
-            }
-
-            .receipt-template .inline-block {
-                display: inline-block;
-            }
-
-            .receipt-template .bold {
-                font-weight: 700;
-            }
-
-            .receipt-template .italic {
-                font-style: italic;
-            }
-
-            .receipt-template .align-right {
-                text-align: right;
-            }
-
-            .receipt-template .align-center {
-                text-align: center;
-            }
-
-            .receipt-template .main-title {
-                font-size: 14px;
-                font-weight: 700;
-                text-align: center;
-                margin: 10px 0 5px 0;
-                padding: 0;
-            }
-
-            .receipt-template .heading {
-                position: relation;
-            }
-
-            .receipt-template .title {
-                font-size: 16px;
-                font-weight: 700;
-                margin: 10px 0 5px 0;
-            }
-
-            .receipt-template .sub-title {
-                font-size: 12px;
-                font-weight: 700;
-                margin: 10px 0 5px 0;
-            }
-
-            .receipt-template table {
-                width: 100%;
-            }
-
-            .receipt-template td,
-            .receipt-template th {
-                font-size: 12px;
-            }
-
-            .receipt-template .info-area {
-                font-size: 12px;
-                line-height: 1.222;
-            }
-
-            .receipt-template .listing-area {
-                line-height: 1.222;
-            }
-
-            .receipt-template .listing-area table {}
-
-            .receipt-template .listing-area table thead tr {
-                border-top: 1px solid #000;
-                border-bottom: 1px solid #000;
-                font-weight: 700;
-            }
-
-            .receipt-template .listing-area table tbody tr {
-                border-top: 1px dashed #000;
-                border-bottom: 1px dashed #000;
-            }
-
-            .receipt-template .listing-area table tbody tr:last-child {
-                border-bottom: none;
-            }
-
-            .receipt-template .listing-area table td {
-                vertical-align: top;
-            }
-
-            .receipt-template .info-area table {}
-
-            .receipt-template .info-area table thead tr {
-                border-top: 1px solid #000;
-                border-bottom: 1px solid #000;
-            }
-
-            /*Receipt Heading*/
-            .receipt-template .receipt-header {
-                text-align: center;
-            }
-
-            .receipt-template .receipt-header .logo-area {
-                width: 80px;
-                height: 80px;
-                margin: 0 auto;
-            }
-
-            .receipt-template .receipt-header .logo-area img.logo {
-                display: inline-block;
-                max-width: 100%;
-                max-height: 100%;
-            }
-
-            .receipt-template .receipt-header .address-area {
-                margin-bottom: 5px;
-                line-height: 1;
-            }
-
-            .receipt-template .receipt-header .info {
-                font-size: 12px;
-            }
-
-            .receipt-template .receipt-header .store-name {
-                font-size: 24px;
-                font-weight: 700;
-                margin: 0;
-                padding: 0;
-            }
-
-
-            /*Invoice Info Area*/
-            .receipt-template .invoice-info-area {}
-
-            /*Customer Customer Area*/
-            .receipt-template .customer-area {
-                margin-top: 10px;
-            }
-
-            /*Calculation Area*/
-            .receipt-template .calculation-area {
-                border-top: 2px solid #000;
-                font-weight: bold;
-            }
-
-            .receipt-template .calculation-area table td {
-                text-align: right;
-            }
-
-            .receipt-template .calculation-area table td:nth-child(2) {
-                border-bottom: 1px dashed #000;
-            }
-
-            /*Item Listing*/
-            .receipt-template .item-list table tr {}
-
-            /*Barcode Area*/
-            .receipt-template .barcode-area {
-                margin-top: 10px;
-                text-align: center;
-            }
-
-            .receipt-template .barcode-area img {
-                max-width: 100%;
-                display: inline-block;
-            }
-
-            /*Footer Area*/
-            .receipt-template .footer-area {
-                line-height: 1.222;
-                font-size: 10px;
-            }
-
-            /*Media Query*/
-            @media print {
-                .receipt-template {
-                    width: 100%;
-                }
-            }
-
-            @media all and (max-width: 215px) {}
-        </style>
         <section class="receipt-template">
 
             <header class="receipt-header">
@@ -441,24 +441,18 @@
                                 Send Email </button>
                         </td>
                     </tr>
-                    <tr class="no-print">
-                        <td colspan="2">
-                            <a class="btn btn-default btn-block" href="pos.php">
-                                ← Back to POS </a>
-                        </td>
-                    </tr>
-                    <tr class="text-center">
-                        <td colspan="2">
-                            <p class="powered-by">
-                                <small>© ITsolution24.com</small>
-                            </p>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <script>
+        // window.print();
+        // window.onafterprint = back;
 
+        // function back() {
+        //     window.history.back();
+        // }
+    </script>
 </body>
 
 </html>

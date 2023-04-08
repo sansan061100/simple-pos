@@ -84,6 +84,7 @@
 
     $('#table').on('click', '.detailOrder', function() {
         let id = $(this).data('id');
+        $('#id').val(id);
         let url = CURRENT_URL + '/' + id;
         $.ajax({
             url: url,
@@ -174,5 +175,11 @@
                 }
             }
         });
+    });
+
+    $('#modal-order').on('click', '.print', function() {
+        let id = $('#id').val();
+        let url = CURRENT_URL + '/' + id + '/print';
+        window.open(url, '_self');
     });
 </script>
