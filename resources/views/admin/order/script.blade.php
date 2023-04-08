@@ -42,9 +42,11 @@
         {
             mData: 'id',
             render: function(data, type, row, meta) {
+                let cancel = row.status == 0 ? '' :
+                    `<button class="btn btn-danger btn-sm cancelOrder" data-id="${data}">Cancel</button>`
                 return `
                 <a class="btn btn-warning btn-sm detailOrder" data-id="${data}">Detail</a>
-                <button class="btn btn-danger btn-sm cancelOrder" data-id="${data}">Cancel</button>`;
+                ${cancel}`;
             }
         }
     ]

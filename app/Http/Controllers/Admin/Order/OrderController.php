@@ -72,6 +72,7 @@ class OrderController extends Controller
                     'stock_id' => $stock->id,
                 ]);
             }
+
             $discount = $request->discount / 100 * $total;
             $total = $total - $discount;
 
@@ -114,5 +115,48 @@ class OrderController extends Controller
             'status' => 'success',
             'data' => $order
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $findOrder = Order::with('detail.stock')->where('id', $id)->first();
+
+        DB::beginTransaction();
+
+        try {
+            // update status order
+            $findOrder->update([
+                'status' => $request->status,
+                'updated_at' => now(),
+            ]);
+
+            // create stock return
+            foreach ($findOrder->detail as $item) {
+                Stock::create([
+                    'product_id' => $item->stock->product_id,
+                    'qty' => $item->stock->qty,
+                    'purchase_price' => $item->stock->purchase_price,
+                    'selling_price' => $item->stock->selling_price,
+                    'description' => 'Return',
+                    'status' => config('constants.stock.in'),
+                    'updated_at' => now(),
+                ]);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Order canceled successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            throw $th;
+        }
+    }
+
+    public function print($id)
+    {
+        return view('admin.order.print');
     }
 }

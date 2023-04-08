@@ -153,7 +153,7 @@
         initDatatable({
             columns: columns(2),
             table: 'table-stock-out',
-            url: BASE_URL + '/admin/stock?product={{ $product->id }}&status=2'
+            url: BASE_URL + '/admin/stock?product={{ $product->id }}&status=0'
         });
     </script>
 @endpush

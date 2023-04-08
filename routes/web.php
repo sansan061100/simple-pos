@@ -45,6 +45,7 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('product', ProductController::class)->except(['create', 'update']);
 
+    Route::get('order/{id}/print', [OrderController::class, 'print']);
     Route::resource('order', OrderController::class)->except(['edit', 'destroy']);
 
     Route::resource('stock', StockController::class);
@@ -58,16 +59,16 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 Route::get('tes', function () {
     // ALL ENV
     // Stock::delete()
-    $produk = Product::where('purchase_price', '>', 0)->get();
+    // $produk = Product::where('purchase_price', '>', 0)->get();
 
-    foreach ($produk as $key => $value) {
-        // create stock
-        Stock::create([
-            'product_id' => $value->id,
-            'qty' => 1000,
-            'purchase_price' => $value->purchase_price,
-            'description' => 'Initial Stock',
-            'status' => 1
-        ]);
-    }
+    // foreach ($produk as $key => $value) {
+    //     // create stock
+    //     Stock::create([
+    //         'product_id' => $value->id,
+    //         'qty' => 1000,
+    //         'purchase_price' => $value->purchase_price,
+    //         'description' => 'Initial Stock',
+    //         'status' => 1
+    //     ]);
+    // }
 });
