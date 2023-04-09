@@ -17,6 +17,7 @@
                                 <th>Date</th>
                                 <th>Invoice Code</th>
                                 <th>Customer</th>
+                                <th>Cashier</th>
                                 <th>Amount</th>
                                 <th>Status</th>
                                 <th>Action</th>

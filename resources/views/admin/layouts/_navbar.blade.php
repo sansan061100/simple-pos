@@ -20,7 +20,10 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i> Profile</a>
-                <a class="dropdown-item" href="{{ url('admin/setting') }}"><i class="fas fa-cog mr-2"></i> Setting</a>
+                @if (getUser()->role == 1)
+                    <a class="dropdown-item" href="{{ url('admin/setting') }}"><i class="fas fa-cog mr-2"></i>
+                        Setting</a>
+                @endif
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item"
                     onclick="event.preventDefault(); document.getElementById('form-logout').submit();">

@@ -1,6 +1,7 @@
 <script>
     let columns = [{
-            mData: 'id',
+            mData: 'invoice_code',
+            data: 'invoice_code',
             render: function(data, type, row, meta) {
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
@@ -22,6 +23,14 @@
         },
         {
             mData: 'customer',
+            name: 'customer.name',
+            render: function(data, type, row, meta) {
+                return data ?? '-'
+            }
+        },
+        {
+            mData: 'user',
+            name: 'user.name',
             render: function(data, type, row, meta) {
                 return data ?? '-'
             }

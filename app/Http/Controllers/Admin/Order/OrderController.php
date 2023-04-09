@@ -20,20 +20,11 @@ class OrderController extends Controller
         $data['title'] = 'Order';
         if ($request->ajax()) {
             $order = Order::leftJoin('customer', 'customer.id', '=', 'order.customer_id')
-                ->select('order.*', 'customer.name as customer');
+                ->leftJoin('user', 'user.id', '=', 'order.user_id')
+                ->select('order.*', 'customer.name as customer', 'user.name as user');
 
             return DataTables::of($order)
-                ->filter(function ($query) use ($request) {
-                    $array = ['invoice_code', 'customer.name'];
-
-                    foreach ($array as $key => $item) {
-                        if ($key == 0) {
-                            $query->where($item, 'like', '%' . $request->search['value'] . '%');
-                        } else {
-                            $query->orWhere($item, 'like', '%' . $request->search['value'] . '%');
-                        }
-                    }
-                })->toJson();
+                ->toJson();
         }
         return view('admin.order.index', $data);
     }
@@ -162,6 +153,10 @@ class OrderController extends Controller
             'customer',
             'user'
         ])->where('id', $id)->first();
+
+        // if ($data['order']->status == 0) {
+        //     abort(403, 'Order canceled');
+        // }
         return view('admin.order.print', $data);
     }
 }

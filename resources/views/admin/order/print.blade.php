@@ -26,6 +26,10 @@
             display: none !important
         }
 
+        .text-right {
+            text-align: right !important;
+        }
+
         .print-btn {
             position: fixed;
             bottom: 0;
@@ -114,7 +118,9 @@
             line-height: 1.222;
         }
 
-        .receipt-template .listing-area table {}
+        .receipt-template .listing-area table {
+            margin-top: 5px;
+        }
 
         .receipt-template .listing-area table thead tr {
             border-top: 1px solid #000;
@@ -169,7 +175,7 @@
         }
 
         .receipt-template .receipt-header .store-name {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 700;
             margin: 0;
             padding: 0;
@@ -216,6 +222,7 @@
         .receipt-template .footer-area {
             line-height: 1.222;
             font-size: 10px;
+            margin-top: 10px;
         }
 
         /*Media Query*/
@@ -236,15 +243,16 @@
 
             <header class="receipt-header">
                 <div class="logo-area">
-                    <img class="logo"
-                        src="http://itsolution24.com/posv33/assets/itsolution24/img/logo-favicons/1_logo.jpg">
+                    <img class="logo" src="{{ $setting->logo }}">
                 </div>
-                <h2 class="store-name">Store 01</h2>
+                {{-- <h3 class="store-name">{{ $setting?->store_name ?? 'SimplePos' }}</h3> --}}
                 <div class="address-area">
-                    <span class="info address">BD</span>
+                    <span class="info address">{{ $setting?->address ?? '-' }}</span>
                     <div class="block">
-                        <span class="info phone">Mobile: 11111111111</span>, <span class="info email">Email:
-                            info@store1.com</span>
+                        <span class="info phone">Mobile: {{ $setting?->phone_number ?? '-' }}</span>
+                        <br>
+                        <span class="info email">Email:
+                            {{ $setting?->email ?? '-' }}</span>
                     </div>
                 </div>
             </header>
@@ -253,48 +261,35 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="w-30"><span>Invoice ID:</span></td>
-                            <td>12023/00000001</td>
-                        </tr>
-                        <tr>
-                            <td class="w-30">VAT-Reg:</td>
-                            <td>654321</td>
+                            <td class="w-30"><span>Invoice Code:</span></td>
+                            <td>{{ $order->invoice_code }}</td>
                         </tr>
                         <tr>
                             <td class="w-30"><span>Date:</span></td>
-                            <td>7 Apr 2023 3:48 AM</td>
+                            <td>{{ dateFormater($order->created_at) }}</td>
                         </tr>
                         <tr>
-                            <td class="w-30"><span>GST Reg:</span></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="w-30">Customer Name:</td>
-                            <td>Walking Customer</td>
+                            <td class="w-30">Customer:</td>
+                            <td>{{ $order->customer?->name ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td class="w-30">Phone:</td>
-                            <td>0170000000000</td>
+                            <td>{{ $order->customer?->phone_number ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td class="w-30">Address:</td>
-                            <td>BD</td>
-                        </tr>
-                        <tr>
-                            <td class="w-30">GTIN:</td>
-                            <td>147258</td>
+                            <td>{{ $order->customer?->address ?? '-' }}</td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <h4 class="main-title">INVOICE</h4>
+            {{-- <h4 class="main-title">INVOICE</h4> --}}
 
             <section class="listing-area item-list">
                 <table>
                     <thead>
                         <tr>
-                            <td class="w-10 text-center">Sl.</td>
                             <td class="w-40 text-center">Name</td>
                             <td class="w-15 text-center">Qty</td>
                             <td class="w-15 text-right">Price</td>
@@ -302,27 +297,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Banana
-
-                                <small>[HSN-]</small>
-                            </td>
-                            <td class="text-center">1.00 Pieces</td>
-                            <td class="text-right">50.00</td>
-                            <td class="text-right">2.000.000</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Home Delivery
-
-                                <small>[HSN-]</small>
-                            </td>
-                            <td class="text-center">1.00 </td>
-                            <td class="text-right">100.00</td>
-                            <td class="text-right">100.00</td>
-                        </tr>
-
+                        @php
+                            $totalAmount = 0;
+                        @endphp
+                        @foreach ($order->detail as $item)
+                            @php
+                                $amountPerItem = $item->stock->qty * $item->stock->selling_price;
+                                $totalAmount += $amountPerItem;
+                            @endphp
+                            <tr>
+                                <td>{{ substr($item->stock->product->name, 0, 15) }}
+                                <td class="text-center">{{ rupiah($item->stock->qty, '') }}</td>
+                                <td class="text-right">{{ rupiah($item->stock->selling_price, '') }}</td>
+                                <td class="text-right">{{ rupiah($amountPerItem, '') }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </section>
@@ -331,59 +320,35 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td class="w-70">Total Amt:</td>
-                            <td>150.00</td>
-                        </tr>
-                        <tr>
-                            <td class="w-70">Order Tax:</td>
-                            <td>0.00</td>
+                            <td class="w-70">Sub Total:</td>
+                            <td>{{ rupiah($totalAmount, '') }}</td>
                         </tr>
                         <tr>
                             <td class="w-70">Discount:</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td class="w-70">Shipping Chrg:</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td class="w-70">Others Chrg:</td>
-                            <td>0.00</td>
-                        </tr>
-                        <tr>
-                            <td class="w-70">Previous Due:</td>
-                            <td>0.00</td>
+                            <td>{{ rupiah($order->discount, '') }}</td>
                         </tr>
                         <tr>
                             <td class="w-70">Total Due:</td>
-                            <td>150.00</td>
+                            <td>{{ rupiah($totalAmount - $order->discount, '') }}</td>
                         </tr>
                         <tr>
-                            <td class="w-70">Amount Paid:</td>
-                            <td>200.00</td>
-                        </tr>
-                        <tr>
-                            <td class="w-70">Prev. Due Paid:</td>
-                            <td>0.00</td>
+                            <td class="w-70">Paid:</td>
+                            <td>{{ rupiah($order->paid, '') }}</td>
                         </tr>
                         <tr>
                             <td class="w-70">Change:</td>
-                            <td>50.00</td>
-                        </tr>
-                        <tr>
-                            <td class="w-70">Due:</td>
-                            <td>0.00</td>
+                            <td>{{ rupiah($order->paid - ($totalAmount - $order->discount), '') }}</td>
                         </tr>
                     </tbody>
                 </table>
             </section>
 
-            <section class="info-area italic">
+            {{-- <section class="info-area italic">
                 <span class="text-small"><b>In Text:</b> One Hundred Fifty only</span><br>
-            </section>
+            </section> --}}
 
 
-            <section class="listing-area payment-list">
+            {{-- <section class="listing-area payment-list">
                 <div class="heading">
                     <h2 class="sub-title">Payments</h2>
                 </div>
@@ -406,52 +371,22 @@
 
                     </tbody>
                 </table>
-            </section>
+            </section> --}}
 
-
-            <section class="info-area barcode-area">
-                <img class="bcimg"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAAeAQMAAAD5F1J6AAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAACpJREFUKJFj6N71Yt2OdYt37Vj3Tqtj0eJdyPDFuu5dDKMKRhWMKhiaCgBLIYpHJp0c4QAAAABJRU5ErkJggg=="
-                    height="20">
-            </section>
 
             <section class="info-area align-center footer-area">
-                <span class="block">Sold product No Claim. No Change, New product One Month Warranty.</span>
-                <span class="block bold">Thank you for choosing us!</span>
+                <span class="block bold">Thank you for shopping with us.</span>
             </section>
 
         </section>
-        <div class="table-responsive footer-actions">
-            <table class="table">
-                <tbody>
-                    <tr class="no-print">
-                        <td colspan="2">
-                            <button
-                                onclick="window.printInvoice('invoice', {title:'12023/00000001',scrrenSize:'halfScreen'});"
-                                class="btn btn-info btn-block">
-                                <span class="fa fa-fw fa-print"></span>
-                                Print </button>
-                        </td>
-                    </tr>
-                    <tr class="no-print">
-                        <td colspan="2">
-                            <button id="email-btn" data-customername="Walking Customer" data-invoiceid="12023/00000001"
-                                class="btn btn-success btn-block">
-                                <span class="fa fa-fw fa-envelope-o"></span>
-                                Send Email </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
     </div>
     <script>
-        // window.print();
-        // window.onafterprint = back;
+        window.print();
+        window.onafterprint = back;
 
-        // function back() {
-        //     window.history.back();
-        // }
+        function back() {
+            window.history.back();
+        }
     </script>
 </body>
 
