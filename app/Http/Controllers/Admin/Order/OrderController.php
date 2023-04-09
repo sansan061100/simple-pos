@@ -21,7 +21,12 @@ class OrderController extends Controller
         if ($request->ajax()) {
             $order = Order::leftJoin('customer', 'customer.id', '=', 'order.customer_id')
                 ->leftJoin('user', 'user.id', '=', 'order.user_id')
-                ->select('order.*', 'customer.name as customer', 'user.name as user');
+                ->select('order.*', 'customer.name as customer', 'user.name as user')
+                ->where(function ($query) use ($request) {
+                    if (getUser()->role != 1) {
+                        $query->where('order.user_id', getUser()->id);
+                    }
+                });
 
             return DataTables::of($order)
                 ->toJson();
