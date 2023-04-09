@@ -28,33 +28,35 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('admin/category') }}"
-                        class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Category
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('admin/product') }}"
-                        class="nav-link {{ request()->is('admin/product') || request()->is('admin/product/*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-boxes"></i>
-                        <p>
-                            Product
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('admin/user') }}"
-                        class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            User
-                        </p>
-                    </a>
-                </li>
+                @if (getUser()->role == 1)
+                    <li class="nav-item">
+                        <a href="{{ url('admin/category') }}"
+                            class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Category
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/product') }}"
+                            class="nav-link {{ request()->is('admin/product') || request()->is('admin/product/*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>
+                                Product
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/user') }}"
+                            class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                User
+                            </p>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ url('admin/customer') }}"
                         class="nav-link {{ request()->is('admin/customer') ? 'active' : '' }}">
@@ -73,15 +75,17 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('admin/report') }}"
-                        class="nav-link {{ request()->is('admin/report') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-alt"></i>
-                        <p>
-                            Report (Coming soon)
-                        </p>
-                    </a>
-                </li>
+                @if (getUser()->role == 1)
+                    <li class="nav-item">
+                        <a href="{{ url('admin/report') }}"
+                            class="nav-link {{ request()->is('admin/report') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file-alt"></i>
+                            <p>
+                                Report (Coming soon)
+                            </p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
