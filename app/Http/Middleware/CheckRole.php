@@ -16,7 +16,7 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         if (!in_array(auth()->user()->role, $roles)) {
-            return redirect()->route('login');
+            abort(403, 'Don\'t have permission to access this page');
         }
 
         return $next($request);
