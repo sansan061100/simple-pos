@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <span class="brand-text font-weight-bold text-white">SimplePos</span>
+        <span class="brand-text font-weight-bold text-white">{{ $setting?->application_name ?? 'SimplePos' }}</span>
     </a>
 
     <!-- Sidebar -->

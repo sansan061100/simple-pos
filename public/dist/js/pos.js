@@ -41,7 +41,7 @@ document.addEventListener('alpine:init', async () => {
                 price: product.selling_price,
                 qty: 1,
                 image: imageUrl(product.photo),
-                purchase_price: product.purchase_price,
+                purchase_price: product.avarage_purchase_price,
             }
 
             // check if product already in cart
@@ -113,10 +113,10 @@ document.addEventListener('alpine:init', async () => {
 
             const response = await axios.post(BASE_URL + '/admin/order', data)
                 .then(response => {
-                    successNotif(response.data.message)
-                    setTimeout(() => {
-                        window.location.href = response.data.redirect
-                    }, 1000);
+                    // successNotif(response.data.message)
+                    // setTimeout(() => {
+                    //     window.location.href = response.data.redirect
+                    // }, 1000);
                 })
                 .catch(error => {
                     errorNotif(error.message)

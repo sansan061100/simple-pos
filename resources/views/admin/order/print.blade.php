@@ -384,7 +384,10 @@
         window.onafterprint = back;
 
         function back() {
+            // redirect back & refresh
             window.history.back();
+            location.reload();
+
         }
     </script>
 </body>

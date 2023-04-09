@@ -33,7 +33,7 @@ class Product extends Model
     public function scopeAvaragePurchasePrice($query)
     {
         return $query->addSelect([
-            DB::raw('ROUND(SUM(IF(stock.status = 1, stock.purchase_price * stock.qty,0)) / SUM(IF(stock.status = 1, stock.qty,0))) as avarage_purchase_price')
+            DB::raw('ROUND(SUM(IF(stock.status = 1 AND description != "Return", stock.purchase_price * stock.qty,0)) / SUM(IF(stock.status = 1 AND description != "Return", stock.qty,0))-SUM(IF(stock.status = 0, stock.purchase_price * stock.qty,0)) / SUM(IF(stock.status = 1, stock.qty,0))) as avarage_purchase_price')
         ]);
     }
 }

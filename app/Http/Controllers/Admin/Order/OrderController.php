@@ -49,7 +49,6 @@ class OrderController extends Controller
         $detail = [];
 
         DB::beginTransaction();
-
         try {
             foreach ($request->cart as $item) {
                 $total += $item['price'] * $item['qty'];
