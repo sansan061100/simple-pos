@@ -373,7 +373,6 @@
                 </table>
             </section> --}}
 
-
             <section class="info-area align-center footer-area">
                 <span class="block bold">Thank you for shopping with us.</span>
             </section>
