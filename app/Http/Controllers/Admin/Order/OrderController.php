@@ -91,7 +91,7 @@ class OrderController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Order created successfully',
-                'redirect' => route('admin.order.index')
+                'redirect' => route('admin.order.index') . '/' . $order->id . '/print'
             ]);
         } catch (\Throwable $th) {
             DB::rollback();
