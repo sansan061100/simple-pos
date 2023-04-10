@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label>Month</label>
-                        <select name="month" class="select2 w-100">
+                        <select name="month" class="select2 form-control w-100">
                             <option value="">Month</option>
                             @foreach (allMonths() as $key => $month)
                                 <option value="{{ $key }}">
@@ -17,7 +17,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label>Year</label>
-                        <select name="year" class="select2 w-100">
+                        <select name="year" class="select2 form-control w-100">
                             <option value="">Year</option>
                             @foreach (allYears(2023, 5, 5) as $year)
                                 <option value="{{ $year }}">
@@ -34,25 +34,25 @@
         </form>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-12">
+    <div class="col-md-2 col-sm-6 col-12">
         <div class="info-box">
-            <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+            <span class="info-box-icon bg-info"><i class="fas fa-users"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">User</span>
                 <span class="info-box-number">1,410</span>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-12">
+    <div class="col-md-2 col-sm-6 col-12">
         <div class="info-box">
-            <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+            <span class="info-box-icon bg-info"><i class="fas fa-boxes"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Product</span>
                 <span class="info-box-number">1,410</span>
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-12">
+    <div class="col-md-2 col-sm-6 col-12">
         <div class="info-box">
             <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
             <div class="info-box-content">
@@ -61,12 +61,21 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3 col-sm-6 col-12">
+    <div class="col-md-2 col-sm-6 col-12">
         <div class="info-box">
             <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Order</span>
                 <span class="info-box-number">1,410</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Sales</span>
+                <span class="info-box-number">Rp 2.000.000.000</span>
             </div>
         </div>
     </div>
