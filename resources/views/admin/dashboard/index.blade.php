@@ -37,6 +37,16 @@
     <div class="col-md-12">
         <div class="row" id="widget"></div>
     </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Top Sell Product</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="topSellProduct">
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('styles')
@@ -45,5 +55,5 @@
 
 @push('scripts')
     @include('admin.plugins.select2-js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
+    @include('admin.dashboard.script')
 @endpush

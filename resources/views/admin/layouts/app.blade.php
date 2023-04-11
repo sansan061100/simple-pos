@@ -11,9 +11,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 
 <body class="hold-transition sidebar-mini">
-    {{-- <div class="loader-wrapper preload">
+    <div class="loader-wrapper preload">
         <div class="loader"></div>
-    </div> --}}
+    </div>
     <div class="wrapper">
 
         <!-- Navbar -->
