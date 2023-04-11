@@ -19,18 +19,7 @@ function dateFormater($date, $format = 'd/m/Y, H:i:s')
 function allMonths()
 {
     return [
-        '01' => 'January',
-        '02' => 'February',
-        '03' => 'March',
-        '04' => 'April',
-        '05' => 'May',
-        '06' => 'June',
-        '07' => 'July',
-        '08' => 'August',
-        '09' => 'September',
-        '10' => 'October',
-        '11' => 'November',
-        '12' => 'December',
+        'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
     ];
 }
 
@@ -48,4 +37,20 @@ function allYears($year = 2023, $previous = 0, $next = 0)
     // sort by key
     ksort($years);
     return $years;
+}
+
+function listColor()
+{
+    return [
+        '#2ecc71',
+        '#3498db',
+        '#9b59b6',
+        '#34495e',
+        '#f1c40f',
+        '#e67e22',
+        '#e74c3c',
+        '#95a5a6',
+        '#1abc9c',
+        '#16a085',
+    ];
 }

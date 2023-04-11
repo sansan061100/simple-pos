@@ -23,6 +23,7 @@ class DashboardController extends Controller
             return response()->json([
                 'widget' => $this->widget($request),
                 'topSellProduct' => $this->topSellProduct($request),
+                'chartOrder' => $this->chartOrder($request),
             ]);
         }
     }
@@ -102,7 +103,8 @@ class DashboardController extends Controller
                 return $query->whereYear('order.created_at', $request->year);
             })
             ->groupBy('product.name')
-            ->limit(5)
+            ->orderBy('qty', 'desc')
+            ->limit(10)
             ->get();
 
         foreach ($sellProduct as $key => $value) {
@@ -111,5 +113,55 @@ class DashboardController extends Controller
         }
 
         return $topSellProduct;
+    }
+
+    public function chartOrder($request)
+    {
+        $chartOrder = [
+            'labels' => [],
+            'datasets' => []
+        ];
+
+        $month = $request->month;
+        $year = $request->year;
+
+        if ($month == null && $year == null) {
+        } else {
+            if ($month == null) {
+                $order = Order::selectRaw('SUM(amount) as amount, COUNT(order.id) as count, MONTH(order.created_at) as month, user.name as user')
+                    ->leftJoin('user', 'user.id', '=', 'order.user_id')
+                    ->whereYear('order.created_at', $year)
+                    ->groupBy(['month', 'user_id'])
+                    ->get();
+
+                $chartOrder['labels'] = collect(allMonths())->values();
+
+                $no = 0;
+                $chartOrder['datasets'] = $order->groupBy('user')->map(function ($item, $key) use (&$no) {
+                    $allMonths = allMonths();
+                    $data = [];
+
+                    foreach ($allMonths as $value) {
+                        $data[] = 0;
+                    }
+
+                    foreach ($item as $value) {
+                        $data[$value->month - 1] = $value->amount;
+                    }
+
+
+                    $no++;
+
+                    return [
+                        'label' => $key,
+                        'data' => $data,
+                        'backgroundColor' => listColor()[$no],
+                        'borderColor' => listColor()[$no],
+                    ];
+                })->values();
+
+                return $chartOrder;
+            }
+        }
     }
 }

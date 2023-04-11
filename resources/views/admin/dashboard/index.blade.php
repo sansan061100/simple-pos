@@ -10,7 +10,7 @@
                         <select name="month" class="select2 form-control" style="width: 100%">
                             <option value="">Month</option>
                             @foreach (allMonths() as $key => $month)
-                                <option value="{{ $key }}">
+                                <option value="{{ $key + 1 }}">
                                     {{ $month }}</option>
                             @endforeach
                         </select>
@@ -40,10 +40,21 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Top Sell Product</h5>
+                <h5 class="card-title">Top 10 Sell Product</h5>
             </div>
             <div class="card-body">
                 <canvas id="topSellProduct">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Chart Order</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chartOrder">
+                </canvas>
             </div>
         </div>
     </div>

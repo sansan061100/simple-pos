@@ -4,18 +4,23 @@
         theme: 'bootstrap4',
     });
 
+    // Top Sell Product
     const dataTopSellProduct = {
         labels: [],
         datasets: [{
             label: 'Sales',
             data: [],
             backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 206, 86)',
-                'rgb(75, 192, 192)',
-                'rgb(153, 102, 255)',
-                'rgb(255, 159, 64)'
+                '#2ecc71',
+                '#3498db',
+                '#9b59b6',
+                '#34495e',
+                '#f1c40f',
+                '#e67e22',
+                '#e74c3c',
+                '#95a5a6',
+                '#1abc9c',
+                '#16a085',
             ],
             hoverOffset: 4
         }]
@@ -30,6 +35,39 @@
     let topSellProduct = new Chart(
         document.getElementById('topSellProduct'),
         configTopSellProduct
+    );
+
+    // Chart Order
+
+    const dataChartOrder = {
+        labels: [],
+        datasets: []
+    };
+
+    const configChartOrder = {
+        type: 'line',
+        data: dataChartOrder,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: false
+                }
+            },
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            stacked: false,
+        },
+    };
+
+    let chartOrder = new Chart(
+        document.getElementById('chartOrder'),
+        configChartOrder
     );
 
 
@@ -66,6 +104,10 @@
                 topSellProduct.data.labels = response.topSellProduct.labels;
                 topSellProduct.data.datasets[0].data = response.topSellProduct.data;
                 topSellProduct.update();
+
+                chartOrder.data.labels = response.chartOrder.labels;
+                chartOrder.data.datasets = response.chartOrder.datasets;
+                chartOrder.update();
             }
         });
     });
