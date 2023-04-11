@@ -71,9 +71,6 @@ class DashboardController extends Controller
             $widget[4]['value'] = Order::monthAndYear($request)->sum('amount');
 
 
-
-
-
             return response()->json([
                 'widget' => $widget,
             ]);

@@ -45,39 +45,5 @@
 
 @push('scripts')
     @include('admin.plugins.select2-js')
-    <script>
-        $('.select2').select2({
-            theme: 'bootstrap4',
-        });
-
-        $('#form-filter').submit(function(e) {
-            e.preventDefault();
-            var data = $(this).serialize();
-            $.ajax({
-                url: CURRENT_URL + '/filter',
-                type: "GET",
-                data: data,
-                success: function(response) {
-                    let widget = '';
-                    $.each(response.widget, function(key, value) {
-                        widget += `
-                        <div class="${value.size} col-sm-6 col-12">
-                            <div class="info-box">
-                                <span class="info-box-icon ${value.color}"><i class="${value.icon}"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">${value.title}</span>
-                                    <span class="info-box-number">${
-                                        key == 4 ? rupiah(value.value) : numeric(value.value)
-                                    }</span>
-                                </div>
-                            </div>
-                        </div>
-                        `
-                    })
-
-                    $('#widget').html(widget);
-                }
-            });
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
 @endpush
