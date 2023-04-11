@@ -20,8 +20,7 @@ class DashboardController extends Controller
     public function filter(Request $request)
     {
         if ($request->ajax()) {
-            $month = $request->month;
-            $year = $request->year;
+
 
             $widget = [
                 [
@@ -63,29 +62,13 @@ class DashboardController extends Controller
 
             $widget[0]['value'] = User::count();
 
-            $widget[1]['value'] = Product::when($month, function ($query) use ($month) {
-                return $query->whereMonth('created_at', $month);
-            })->when($year, function ($query) use ($year) {
-                return $query->whereYear('created_at', $year);
-            })->count();
+            $widget[1]['value'] = Product::monthAndYear($request)->count();
 
-            $widget[2]['value'] = Customer::when($month, function ($query) use ($month) {
-                return $query->whereMonth('created_at', $month);
-            })->when($year, function ($query) use ($year) {
-                return $query->whereYear('created_at', $year);
-            })->count();
+            $widget[2]['value'] = Customer::monthAndYear($request)->count();
 
-            $widget[3]['value'] = Order::when($month, function ($query) use ($month) {
-                return $query->whereMonth('created_at', $month);
-            })->when($year, function ($query) use ($year) {
-                return $query->whereYear('created_at', $year);
-            })->count();
+            $widget[3]['value'] = Order::monthAndYear($request)->count();
 
-            $widget[4]['value'] = Order::when($month, function ($query) use ($month) {
-                return $query->whereMonth('created_at', $month);
-            })->when($year, function ($query) use ($year) {
-                return $query->whereYear('created_at', $year);
-            })->sum('amount');
+            $widget[4]['value'] = Order::monthAndYear($request)->sum('amount');
 
 
 
