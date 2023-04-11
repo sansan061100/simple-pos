@@ -43,6 +43,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/filter', [DashboardController::class, 'filter']);
 
     Route::middleware('role:1')->group(function () {
         Route::resource('category', CategoryController::class)->except(['create', 'update', 'show']);
@@ -67,79 +68,79 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
 });
 
 
-Route::get('tes', function () {
+// Route::get('tes', function () {
 
-    $periode = collect(CarbonPeriod::create('2023-01-01', '2023-03-31'));
-    $product = Product::select('product.*')
-        ->category()
-        ->stock()
-        ->avaragePurchasePrice()
-        ->groupBy('product.id')
-        ->where('product.selling_price', '>', 0)
-        ->get();
+//     $periode = collect(CarbonPeriod::create('2023-01-01', '2023-03-31'));
+//     $product = Product::select('product.*')
+//         ->category()
+//         ->stock()
+//         ->avaragePurchasePrice()
+//         ->groupBy('product.id')
+//         ->where('product.selling_price', '>', 0)
+//         ->get();
 
-    $customer = Customer::all();
+//     $customer = Customer::all();
 
 
-    DB::beginTransaction();
+//     DB::beginTransaction();
 
-    try {
-        for ($i = 0; $i < 100; $i++) {
-            // get random periode
-            $total = 0;
+//     try {
+//         for ($i = 0; $i < 100; $i++) {
+//             // get random periode
+//             $total = 0;
 
-            // detail
-            $detail = [];
+//             // detail
+//             $detail = [];
 
-            // get 2-5 product random
-            $productRandom = $product->random(rand(2, 5));
+//             // get 2-5 product random
+//             $productRandom = $product->random(rand(2, 5));
 
-            // get random customer
-            $customerRandom = $customer->random();
+//             // get random customer
+//             $customerRandom = $customer->random();
 
-            // get random date
-            $date = $periode->random();
+//             // get random date
+//             $date = $periode->random();
 
-            foreach ($productRandom as $item) {
-                $stock = Stock::create([
-                    'product_id' => $item->id,
-                    'qty' => rand(1, 5),
-                    'purchase_price' => $item->avarage_purchase_price,
-                    'selling_price' => $item->selling_price,
-                    'description' => 'Order',
-                    'status' => config('constants.stock.out'),
-                    'updated_at' => now(),
-                ]);
+//             foreach ($productRandom as $item) {
+//                 $stock = Stock::create([
+//                     'product_id' => $item->id,
+//                     'qty' => rand(1, 5),
+//                     'purchase_price' => $item->avarage_purchase_price,
+//                     'selling_price' => $item->selling_price,
+//                     'description' => 'Order',
+//                     'status' => config('constants.stock.out'),
+//                     'updated_at' => now(),
+//                 ]);
 
-                $total += $stock->selling_price * $stock->qty;
+//                 $total += $stock->selling_price * $stock->qty;
 
-                $detail[] = new OrderDetail([
-                    'discount' => 0,
-                    'stock_id' => $stock->id,
-                ]);
-            }
+//                 $detail[] = new OrderDetail([
+//                     'discount' => 0,
+//                     'stock_id' => $stock->id,
+//                 ]);
+//             }
 
-            $discount = rand(0, 30) * 1000;
-            $change = rand(0, 100) * 1000;
-            $order = Order::create([
-                'invoice_code' => 'INV-' . Carbon::parse($date)->format('Ymd') . '-' . rand(1000, 9999),
-                'customer_id' => $customerRandom->id,
-                'amount' => $total - $discount,
-                'paid' => $total - $discount + $change,
-                'change' => $change,
-                'discount' => $discount,
-                'status' => 1,
-                'user_id' => rand(1, 3),
-                'created_at' => Carbon::parse($date)->format('Ymd') . ' ' . rand(0, 23) . ':' . rand(0, 59) . ':' . rand(0, 59),
-                'updated_at' => Carbon::parse($date)->format('Ymd') . ' ' . rand(0, 23) . ':' . rand(0, 59) . ':' . rand(0, 59),
-            ]);
+//             $discount = rand(0, 30) * 1000;
+//             $change = rand(0, 100) * 1000;
+//             $order = Order::create([
+//                 'invoice_code' => 'INV-' . Carbon::parse($date)->format('Ymd') . '-' . rand(1000, 9999),
+//                 'customer_id' => $customerRandom->id,
+//                 'amount' => $total - $discount,
+//                 'paid' => $total - $discount + $change,
+//                 'change' => $change,
+//                 'discount' => $discount,
+//                 'status' => 1,
+//                 'user_id' => rand(1, 3),
+//                 'created_at' => Carbon::parse($date)->format('Ymd') . ' ' . rand(0, 23) . ':' . rand(0, 59) . ':' . rand(0, 59),
+//                 'updated_at' => Carbon::parse($date)->format('Ymd') . ' ' . rand(0, 23) . ':' . rand(0, 59) . ':' . rand(0, 59),
+//             ]);
 
-            $order->detail()->saveMany($detail);
-        }
-        DB::commit();
-        return 'success';
-    } catch (\Throwable $th) {
-        DB::rollBack();
-        throw $th;
-    }
-});
+//             $order->detail()->saveMany($detail);
+//         }
+//         DB::commit();
+//         return 'success';
+//     } catch (\Throwable $th) {
+//         DB::rollBack();
+//         throw $th;
+//     }
+// });
