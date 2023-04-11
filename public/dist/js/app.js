@@ -1,6 +1,12 @@
 const BASE_URL = $('meta[name="base-url"]').attr('content');
 const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
+$(document).ajaxStop(function () {
+    $(".preload").hide()
+})
+
+$(".preload").hide()
+
 // set header ajax
 $.ajaxSetup({
     headers: {
@@ -59,6 +65,9 @@ const storeData = (args) => {
         contentType: false,
         processData: false,
         async: true,
+        beforeSend: function () {
+            $(".preload").show()
+        },
         success: function (result) {
             successNotif(result.message);
             $('#' + params.table).DataTable().ajax.reload();
@@ -105,6 +114,9 @@ const deleteData = (args) => {
         $.ajax({
             url: params.url,
             type: "DELETE",
+            beforeSend: function () {
+                $(".preload").show()
+            },
             success: function (result) {
                 successNotif(result.message);
                 $('#' + params.table).DataTable().ajax.reload();
