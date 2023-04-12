@@ -42,15 +42,15 @@ function allYears($year = 2023, $previous = 0, $next = 0)
 function listColor()
 {
     return [
-        '#2ecc71',
-        '#3498db',
-        '#9b59b6',
-        '#34495e',
-        '#f1c40f',
         '#e67e22',
-        '#e74c3c',
-        '#95a5a6',
-        '#1abc9c',
-        '#16a085',
+        '#dc3545',
+        '#28a745',
+        '#ffc107',
+        '#17a2b8',
+        '#605ca8',
+        '#f012be',
+        '#001f3f',
+        '#d81b60',
+        '#39cccc'
     ];
 }

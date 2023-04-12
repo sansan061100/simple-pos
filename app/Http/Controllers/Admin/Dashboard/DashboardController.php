@@ -7,7 +7,10 @@ use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -28,6 +31,12 @@ class DashboardController extends Controller
         }
     }
 
+    public function querySumOrder()
+    {
+        return Order::selectRaw('SUM(amount+discount) as amount, COUNT(order.id) as count, user.name as user')
+            ->leftJoin('user', 'user.id', '=', 'order.user_id');
+    }
+
     public function widget($request)
     {
         $widget = [
@@ -36,14 +45,14 @@ class DashboardController extends Controller
                 'value' => 0,
                 'icon' => 'fas fa-users',
                 'color' => 'bg-primary',
-                'size' => 'col-md-2',
+                'size' => 'col-md-3',
             ],
             [
                 'title' => 'Total Product',
                 'value' => 0,
                 'icon' => 'fas fa-boxes',
                 'color' => 'bg-green',
-                'size' => 'col-md-2',
+                'size' => 'col-md-3',
             ],
             [
                 'title' => 'Total Customer',
@@ -57,7 +66,7 @@ class DashboardController extends Controller
                 'value' => 0,
                 'icon' => 'fas fa-shopping-cart',
                 'color' => 'bg-red',
-                'size' => 'col-md-2',
+                'size' => 'col-md-3',
             ],
             [
                 'title' => 'Total Sales',
@@ -65,7 +74,16 @@ class DashboardController extends Controller
                 'icon' => 'fas fa-money-bill-wave',
                 'color' => 'bg-purple',
                 'size' => 'col-md-3',
+                'is_currency' => true
             ],
+            [
+                'title' => 'Gross Profit',
+                'value' => 0,
+                'icon' => 'fas fa-wallet',
+                'color' => 'bg-info',
+                'size' => 'col-md-3',
+                'is_currency' => true
+            ]
         ];
 
         $widget[0]['value'] = User::count();
@@ -76,7 +94,7 @@ class DashboardController extends Controller
 
         $widget[3]['value'] = Order::monthAndYear($request)->count();
 
-        $widget[4]['value'] = Order::monthAndYear($request)->sum('amount');
+        $widget[4]['value'] = Order::monthAndYear($request)->sum(DB::raw('amount+discount'));
 
         return $widget;
     }
@@ -128,8 +146,10 @@ class DashboardController extends Controller
         if ($month == null && $year == null) {
         } else {
             if ($month == null) {
-                $order = Order::selectRaw('SUM(amount) as amount, COUNT(order.id) as count, MONTH(order.created_at) as month, user.name as user')
-                    ->leftJoin('user', 'user.id', '=', 'order.user_id')
+                $order = $this->querySumOrder()
+                    ->addSelect([
+                        DB::raw('MONTH(order.created_at) as month'),
+                    ])
                     ->whereYear('order.created_at', $year)
                     ->groupBy(['month', 'user_id'])
                     ->get();
@@ -159,9 +179,50 @@ class DashboardController extends Controller
                         'borderColor' => listColor()[$no],
                     ];
                 })->values();
+            } else {
+                $order = $this->querySumOrder()
+                    ->addSelect([
+                        DB::raw('DAY(order.created_at) as day'),
+                    ])
+                    ->whereMonth('order.created_at', $month)
+                    ->whereYear('order.created_at', $year)
+                    ->groupBy(['day', 'user_id'])
+                    ->get();
 
-                return $chartOrder;
+                $firstDate = $year . '-' . $month . '-01';
+                $lastDate = Carbon::parse($firstDate)->endOfMonth()->format('Y-m-d');
+                $periode = CarbonPeriod::create($firstDate, $lastDate);
+                $formatPeriode = collect($periode->toArray())->map(function ($item) {
+                    return Carbon::parse($item)->format('d-m-Y');
+                });
+                $chartOrder['labels'] = $formatPeriode;
+
+                $no = 0;
+
+                $chartOrder['datasets'] = $order->groupBy('user')->map(function ($item, $key) use (&$no, $chartOrder) {
+                    $allDays = $chartOrder['labels'];
+                    $data = [];
+
+                    foreach ($allDays as $value) {
+                        $data[] = 0;
+                    }
+
+                    foreach ($item as $value) {
+                        $data[$value->day - 1] = $value->amount;
+                    }
+
+                    $no++;
+
+                    return [
+                        'label' => $key,
+                        'data' => $data,
+                        'backgroundColor' => listColor()[$no],
+                        'borderColor' => listColor()[$no],
+                    ];
+                })->values();
             }
         }
+
+        return $chartOrder;
     }
 }

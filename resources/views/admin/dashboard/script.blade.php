@@ -11,16 +11,16 @@
             label: 'Sales',
             data: [],
             backgroundColor: [
-                '#2ecc71',
-                '#3498db',
-                '#9b59b6',
-                '#34495e',
-                '#f1c40f',
                 '#e67e22',
-                '#e74c3c',
-                '#95a5a6',
-                '#1abc9c',
-                '#16a085',
+                '#dc3545',
+                '#28a745',
+                '#ffc107',
+                '#17a2b8',
+                '#605ca8',
+                '#f012be',
+                '#001f3f',
+                '#d81b60',
+                '#39cccc'
             ],
             hoverOffset: 4
         }]
@@ -92,7 +92,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">${value.title}</span>
                                 <span class="info-box-number">${
-                                    key == 4 ? rupiah(value.value) : numeric(value.value)
+                                    value.is_currency == 1 ? rupiah(value.value) : numeric(value.value)
                                 }</span>
                             </div>
                         </div>
