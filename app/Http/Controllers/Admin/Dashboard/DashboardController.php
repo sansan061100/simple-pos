@@ -76,14 +76,14 @@ class DashboardController extends Controller
                 'size' => 'col-md-3',
                 'is_currency' => true
             ],
-            [
-                'title' => 'Gross Profit',
-                'value' => 0,
-                'icon' => 'fas fa-wallet',
-                'color' => 'bg-info',
-                'size' => 'col-md-3',
-                'is_currency' => true
-            ]
+            // [
+            //     'title' => 'Gross Profit',
+            //     'value' => 0,
+            //     'icon' => 'fas fa-wallet',
+            //     'color' => 'bg-info',
+            //     'size' => 'col-md-3',
+            //     'is_currency' => true
+            // ]
         ];
 
         $widget[0]['value'] = User::count();
@@ -96,6 +96,20 @@ class DashboardController extends Controller
 
         $widget[4]['value'] = Order::monthAndYear($request)->sum(DB::raw('amount+discount'));
 
+        // $purchasePrice = Order::leftJoin('order_detail', 'order_detail.order_id', '=', 'order.id')
+        //     ->leftJoin('stock', 'stock.id', '=', 'order_detail.stock_id')
+        //     ->selectRaw('SUM(stock.purchase_price*stock.qty) as purchase_price')
+        //     ->when($request->month, function ($query) use ($request) {
+        //         return $query->whereMonth('order.created_at', $request->month);
+        //     })
+        //     ->when($request->year, function ($query) use ($request) {
+        //         return $query->whereYear('order.created_at', $request->year);
+        //     })
+        //     ->where('order.status', config('constants.order.success'))
+        //     ->where('product.id', 387)
+        //     ->first()->purchase_price;
+
+        // $widget[5]['value'] = $widget[4]['value'] - $purchasePrice;
         return $widget;
     }
 

@@ -20,7 +20,7 @@
                         <select name="year" class="select2 form-control" style="width: 100%">
                             <option value="">Year</option>
                             @foreach (allYears(2023, 5, 5) as $year)
-                                <option value="{{ $year }}">
+                                <option value="{{ $year }}" {{ $year == date('Y') ? 'selected' : '' }}>
                                     {{ $year }}</option>
                             @endforeach
                         </select>
@@ -37,16 +37,6 @@
     <div class="col-md-12">
         <div class="row" id="widget"></div>
     </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">Top 10 Sell Product</h5>
-            </div>
-            <div class="card-body">
-                <canvas id="topSellProduct">
-            </div>
-        </div>
-    </div>
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -55,6 +45,16 @@
             <div class="card-body">
                 <canvas id="chartOrder">
                 </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Top 10 Sell Product</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="topSellProduct">
             </div>
         </div>
     </div>
