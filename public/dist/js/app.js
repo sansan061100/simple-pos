@@ -3,9 +3,8 @@ const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 $(document).ajaxStop(function () {
     $(".preload").hide()
-})
+});
 
-$(".preload").hide()
 
 // set header ajax
 $.ajaxSetup({

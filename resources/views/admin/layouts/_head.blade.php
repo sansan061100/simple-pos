@@ -8,9 +8,9 @@
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome Icons -->
-@vite(['resources/css/app.css', 'resources/js/app.js'])
 <!-- Theme style -->
 <link rel="stylesheet" href="{{ asset('') }}dist/css/adminlte.min.css">
+<link rel="stylesheet" href="{{ asset('') }}plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 <style>

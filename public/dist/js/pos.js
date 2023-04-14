@@ -1,3 +1,5 @@
+let audioAddCart = new Audio(BASE_URL + '/dist/audio/add_to_cart.mp3')
+let audioRemoveCart = new Audio(BASE_URL + '/dist/audio/remove_cart_item.mp3')
 document.addEventListener('alpine:init', async () => {
     Alpine.store('pos', {
         products: [],
@@ -35,6 +37,7 @@ document.addEventListener('alpine:init', async () => {
             this.calculate()
         },
         async addToCart(product) {
+            audioAddCart.play()
             let cartData = {
                 id: product.id,
                 name: product.name,
@@ -66,6 +69,7 @@ document.addEventListener('alpine:init', async () => {
             this.calculate()
         },
         async deleteItem(id) {
+            audioRemoveCart.play()
             let index = this.cart.findIndex(item => item.id == id)
             if (index > -1) {
                 this.cart.splice(index, 1)
