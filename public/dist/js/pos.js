@@ -3,6 +3,8 @@ let audioRemoveCart = new Audio(BASE_URL + '/dist/audio/remove_cart_item.mp3')
 document.addEventListener('alpine:init', async () => {
     Alpine.store('pos', {
         products: [],
+        product: {},
+        modal: false,
         emptyProducts: false,
         cart: [],
         search: '',
@@ -15,9 +17,10 @@ document.addEventListener('alpine:init', async () => {
         paid: '',
         charge: 0,
         // invoiceCode: '',
-        // dateTime: '',
+        dateTime: '',
         async init() {
-            this.fetchProduct()
+            this.fetchProduct(),
+                this.dateTimeTick()
         },
         async fetchProduct() {
             let url = BASE_URL + '/admin/api/product' + '?q=' + this.search + '&category=' +
@@ -117,26 +120,36 @@ document.addEventListener('alpine:init', async () => {
 
             const response = await axios.post(BASE_URL + '/admin/order', data)
                 .then(response => {
-                    // successNotif(response.data.message)
-                    // setTimeout(() => {
-                    //     window.location.href = response.data.redirect
-                    // }, 1000);
+                    successNotif(response.data.message)
+                    setTimeout(() => {
+                        window.location.href = response.data.redirect
+                    }, 1000);
                 })
                 .catch(error => {
                     errorNotif(error.message)
                 })
         },
-        // async dateTimeTick() {
-        //     let date = new Date()
-        //     let day = date.getDate()
-        //     let month = date.getMonth() + 1
-        //     let year = date.getFullYear()
-        //     let hour = date.getHours()
-        //     let minute = date.getMinutes()
-        //     let second = date.getSeconds()
+        async changePrice(id, price) {
+            let index = this.cart.findIndex(item => item.id == id)
+            // remove dot and Rp
+            price = price.replace(/[^,\d]/g, '').toString()
+            if (index > -1) {
+                this.cart[index].price = price
+            }
 
-        //     this.dateTime = day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' +
-        //         second
-        // }
+            this.calculate()
+        },
+        async dateTimeTick() {
+            let date = new Date()
+            let day = date.getDate()
+            let month = date.getMonth() + 1
+            let year = date.getFullYear()
+            let hour = date.getHours() < 10 ? '0' + date.getHours() : date.getHours()
+            let minute = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+            let second = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+
+            this.dateTime = day + '/' + month + '/' + year + ' ' + hour + ':' + minute + ':' +
+                second
+        }
     });
 })

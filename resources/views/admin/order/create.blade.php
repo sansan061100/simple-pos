@@ -1,9 +1,18 @@
 @extends('admin.layouts.pos')
 
+@section('navbar')
+<h5 class="font-weight-bold" x-text="$store.pos.dateTime" x-data x-init="
+    setInterval(() => {
+        $store.pos.dateTimeTick()
+    }, 1000);
+    "></h5>
+@endsection
+
 @section('content')
-    @php
-        $invoiceCode = 'INV-' . date('YmdHis');
-    @endphp
+@php
+$invoiceCode = 'INV-' . date('YmdHis');
+@endphp
+<div>
     <form @submit.prevent="$store.pos.checkout()" method="POST" x-data>
 
         <section class="section-content padding-y-sm bg-default " x-data>
@@ -24,26 +33,27 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group" x-init="() => {
-                                                    select2 = $($refs.select).select2({
-                                                        theme: 'bootstrap4',
-                                                    });
-                                                    select2.on('select2:select', (event) => {
-                                                        $store.pos.customer = event.target.value;
-                                                    });
-                                                }">
+                                                        select2 = $($refs.select).select2({
+                                                            theme: 'bootstrap4',
+                                                        });
+                                                        select2.on('select2:select', (event) => {
+                                                            $store.pos.customer = event.target.value;
+                                                        });
+                                                    }">
                                                     <label for="">Customer</label>
                                                     <select class="form-control" x-model="$store.pos.customer"
                                                         x-ref="select">
                                                         <option value="">Customer</option>
                                                         @foreach ($customer as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             {{-- <div class="col-md-3">
                                                 <label for="">&nbsp;</label>
-                                                <input type="text" readonly class="form-control" x-model="$store.pos.dateTime">
+                                                <input type="text" readonly class="form-control"
+                                                    x-model="$store.pos.dateTime">
                                             </div> --}}
                                         </div>
                                     </div>
@@ -68,11 +78,11 @@
                                                     <i class="fa fa-tags pr-2"></i> All</a>
                                             </li>
                                             @foreach ($category as $item)
-                                                <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="pill"
-                                                        @click="$store.pos.category = {{ $item->id }}; $store.pos.fetchProduct()">
-                                                        <i class="fa fa-tags pr-2"></i> {{ $item->name }}</a>
-                                                </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill"
+                                                    @click="$store.pos.category = {{ $item->id }}; $store.pos.fetchProduct()">
+                                                    <i class="fa fa-tags pr-2"></i> {{ $item->name }}</a>
+                                            </li>
                                             @endforeach
                                         </ul>
                                         @include('admin.order.components.product')
@@ -111,16 +121,16 @@
                                 <dt>Paid:</dt>
                                 <dd class="text-right">
                                     <div class="input-group" x-init="paid = $($refs.paid).inputmask({
-                                        alias: 'currency',
-                                        prefix: 'Rp ',
-                                        digits: 0,
-                                        groupSeparator: '.',
-                                        rightAlign: false,
-                                    });
-                                    paid.on('keyup', (event) => {
-                                        $store.pos.paid = event.target.value;
-                                        $store.pos.calculate();
-                                    });">
+                                            alias: 'currency',
+                                            prefix: 'Rp ',
+                                            digits: 0,
+                                            groupSeparator: '.',
+                                            rightAlign: false,
+                                        });
+                                        paid.on('keyup', (event) => {
+                                            $store.pos.paid = event.target.value;
+                                            $store.pos.calculate();
+                                        });">
                                         <input type="text" class="form-control" x-ref="paid">
                                     </div>
                                 </dd>
@@ -142,8 +152,9 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="{{ route('admin.order.index') }}" class="btn btn-danger btn-lg btn-block"><i
-                                            class="fa fa-times-circle "></i> Cancel
+                                    <a href="{{ route('admin.order.index') }}"
+                                        class="btn btn-danger btn-lg btn-block"><i class="fa fa-times-circle "></i>
+                                        Cancel
                                     </a>
                                 </div>
                                 <div class="col-md-6">
@@ -158,22 +169,25 @@
             </div><!-- container //  -->
         </section>
     </form>
+
+</div>
+
 @endsection
 
 @push('styles')
-    @include('admin.plugins.select2-css')
-    <link rel="stylesheet" href="{{ asset('dist/css/pos.css') }}">
+@include('admin.plugins.select2-css')
+<link rel="stylesheet" href="{{ asset('dist/css/pos.css') }}">
 @endpush
 
 @push('scripts')
-    @include('admin.plugins.select2-js')
-    @include('admin.plugins.jquery-mask-js')
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-    <script>
-        $('.select2').select2({
+@include('admin.plugins.select2-js')
+@include('admin.plugins.jquery-mask-js')
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+<script>
+    $('.select2').select2({
             theme: 'bootstrap4'
         });
-    </script>
-    <script src="{{ asset('dist/js/pos.js') }}"></script>
+</script>
+<script src="{{ asset('dist/js/pos.js') }}"></script>
 @endpush

@@ -106,7 +106,7 @@
 
         .receipt-template td,
         .receipt-template th {
-            font-size: 12px;
+            font-size: 8px;
         }
 
         .receipt-template .info-area {
@@ -298,19 +298,19 @@
                     </thead>
                     <tbody>
                         @php
-                            $totalAmount = 0;
+                        $totalAmount = 0;
                         @endphp
                         @foreach ($order->detail as $item)
-                            @php
-                                $amountPerItem = $item->stock->qty * $item->stock->selling_price;
-                                $totalAmount += $amountPerItem;
-                            @endphp
-                            <tr>
-                                <td>{{ substr($item->stock->product->name, 0, 15) }}
-                                <td class="text-center">{{ rupiah($item->stock->qty, '') }}</td>
-                                <td class="text-right">{{ rupiah($item->stock->selling_price, '') }}</td>
-                                <td class="text-right">{{ rupiah($amountPerItem, '') }}</td>
-                            </tr>
+                        @php
+                        $amountPerItem = $item->stock->qty * $item->stock->selling_price;
+                        $totalAmount += $amountPerItem;
+                        @endphp
+                        <tr>
+                            <td>{{ substr($item->stock->product->name, 0, 15) }}
+                            <td class="text-right">{{ rupiah($item->stock->qty, '') }}</td>
+                            <td class="text-right">{{ rupiah($item->stock->selling_price, '') }}</td>
+                            <td class="text-right">{{ rupiah($amountPerItem, '') }}</td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

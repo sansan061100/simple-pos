@@ -13,14 +13,15 @@
         </template>
 
         <template x-for="product in $store.pos.products" :key="product.id">
-            <div class="col-md-2">
+            <div class="col-md-2 col-6">
                 <figure class="card card-product" @click="$store.pos.addToCart(product)">
                     <span class="badge-new" x-text="numeric(product.stock)"></span>
                     <div class="img-wrap">
                         <img :src="imageUrl(product.photo)">
                     </div>
                     <figcaption class="info-wrap">
-                        <a href="#" class="title" x-text="product.name"></a>
+                        <a href="#" class="title"
+                            x-text="product.name.length > 15 ? product.name.substring(0,15) + '...' : product.name "></a>
                         <div class="action-wrap">
                             <div class="price-wrap">
                                 <span class="price-new" x-text="rupiah(product.selling_price)"></span>

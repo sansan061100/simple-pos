@@ -22,6 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="" class="navbar-brand">
                     <span class="brand-text font-weight-bold">SimplePos </span>
                 </a>
+                @yield('navbar')
             </div>
         </nav>
         <!-- Content Wrapper. Contains page content -->
