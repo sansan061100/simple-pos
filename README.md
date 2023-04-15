@@ -29,6 +29,7 @@ DB_PASSWORD=
 
 
 # Usage
+- Run `php artisan key:generate`
 - Run `php artisan serve`
 - Open `http://localhost:8000` in your browser
 
