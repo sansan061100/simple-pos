@@ -82,7 +82,9 @@ document.addEventListener('alpine:init', async () => {
         async subTotalCount() {
             let subTotal = 0
             this.cart.forEach(item => {
-                subTotal += item.price * item.qty
+                console.log
+                // remove dot
+                subTotal += removeComa(item.price) * item.qty
             });
 
             this.subTotal = subTotal
@@ -94,7 +96,7 @@ document.addEventListener('alpine:init', async () => {
             let paid = 0;
 
             // remove dot and Rp
-            paid = this.paid.replace(/[^,\d]/g, '').toString()
+            paid = removeComa(this.paid)
 
             this.charge = (paid - this.total) < 0 ? 0 : paid - this.total
         },
@@ -124,6 +126,17 @@ document.addEventListener('alpine:init', async () => {
                     setTimeout(() => {
                         window.location.href = response.data.redirect
                     }, 1000);
+
+                    // reset all data form
+                    this.cart = []
+                    this.discount = 0
+                    this.customer = ''
+                    this.paid = ''
+                    this.charge = 0
+                    this.calculate()
+
+                    // select 2 reset
+                    $('#customer').val(null).trigger('change');
                 })
                 .catch(error => {
                     errorNotif(error.message)
@@ -131,8 +144,7 @@ document.addEventListener('alpine:init', async () => {
         },
         async changePrice(id, price) {
             let index = this.cart.findIndex(item => item.id == id)
-            // remove dot and Rp
-            price = price.replace(/[^,\d]/g, '').toString()
+            // remove dot
             if (index > -1) {
                 this.cart[index].price = price
             }
@@ -153,3 +165,10 @@ document.addEventListener('alpine:init', async () => {
         }
     });
 })
+
+// remove koma
+function removeComa(value) {
+    // 200,000,000 to 200000000
+    return parseFloat(value.toString().replace(/,/g, ''))
+}
+

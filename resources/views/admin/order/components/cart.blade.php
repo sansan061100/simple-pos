@@ -47,17 +47,12 @@
                                     </div>
                                 </td>
                                 <td width="20%">
-                                    <div class="price-wrap" x-init="price = $('.price-item').inputmask({
-                                        alias: 'currency',
-                                        {{-- prefix: 'Rp ', --}}
-                                        digits: 0,
-                                        groupSeparator: '.',
-                                        rightAlign: false,
-                                    });">
+                                    <div class="price-wrap">
                                         {{-- <p x-text=" rupiah(item.price)">
                                         </p> --}}
                                         <input class="form-control price-item" type="text"
                                             x-bind:value="item.price" style="width: 100%"
+                                            x-mask:dynamic="$money($input)"
                                             @keyup="$store.pos.changePrice(item.id, $event.target.value)">
                                     </div> <!-- price-wrap .// -->
                                 </td>
