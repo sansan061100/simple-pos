@@ -77,7 +77,7 @@
         }
 
         .receipt-template .main-title {
-            font-size: 14px;
+            font-size: 10px;
             font-weight: 700;
             text-align: center;
             margin: 10px 0 5px 0;
@@ -89,7 +89,7 @@
         }
 
         .receipt-template .title {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: 700;
             margin: 10px 0 5px 0;
         }
@@ -106,7 +106,7 @@
 
         .receipt-template td,
         .receipt-template th {
-            font-size: 8px;
+            font-size: 10px;
         }
 
         .receipt-template .info-area {
@@ -171,11 +171,11 @@
         }
 
         .receipt-template .receipt-header .info {
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .receipt-template .receipt-header .store-name {
-            font-size: 18px;
+            font-size: 10px;
             font-weight: 700;
             margin: 0;
             padding: 0;
@@ -380,14 +380,14 @@
         </section>
     </div>
     <script>
-        window.print();
-        window.onafterprint = back;
+        // window.print();
+        // window.onafterprint = back;
 
-        function back() {
-            // redirect back & reload page
-            window.history.back();
-            location.reload();
-        }
+        // function back() {
+        //     // redirect back & reload page
+        //     window.history.back();
+        //     location.reload();
+        // }
     </script>
 </body>
 

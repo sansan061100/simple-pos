@@ -40,13 +40,13 @@ class DashboardController extends Controller
     public function widget($request)
     {
         $widget = [
-            [
-                'title' => 'Total User',
-                'value' => 0,
-                'icon' => 'fas fa-users',
-                'color' => 'bg-primary',
-                'size' => 'col-md-3',
-            ],
+            // [
+            //     'title' => 'Total User',
+            //     'value' => 0,
+            //     'icon' => 'fas fa-users',
+            //     'color' => 'bg-primary',
+            //     'size' => 'col-md-3',
+            // ],
             [
                 'title' => 'Total Product',
                 'value' => 0,
@@ -86,15 +86,15 @@ class DashboardController extends Controller
             // ]
         ];
 
-        $widget[0]['value'] = User::count();
+        // $widget[0]['value'] = User::count();
 
-        $widget[1]['value'] = Product::monthAndYear($request)->count();
+        $widget[0]['value'] = Product::monthAndYear($request)->count();
 
-        $widget[2]['value'] = Customer::monthAndYear($request)->count();
+        $widget[1]['value'] = Customer::monthAndYear($request)->count();
 
-        $widget[3]['value'] = Order::monthAndYear($request)->count();
+        $widget[2]['value'] = Order::monthAndYear($request)->count();
 
-        $widget[4]['value'] = Order::monthAndYear($request)->sum(DB::raw('amount+discount'));
+        $widget[3]['value'] = Order::monthAndYear($request)->sum(DB::raw('amount+discount'));
 
         // $purchasePrice = Order::leftJoin('order_detail', 'order_detail.order_id', '=', 'order.id')
         //     ->leftJoin('stock', 'stock.id', '=', 'order_detail.stock_id')
