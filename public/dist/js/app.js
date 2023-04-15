@@ -71,11 +71,11 @@ const storeData = (args) => {
         },
         success: function (result) {
             successNotif(result.message);
-            args.table != null ? $('#' + params.table).DataTable().ajax.reload() : '';
+            params.table != null ? $('#' + params.table).DataTable().ajax.reload() : '';
             $('#' + params.modal).modal('hide');
-            if (args.redirect) {
+            if (params.redirect != null) {
                 setTimeout(() => {
-                    window.location = args.redirect
+                    window.location = params.redirect
                 }, 2000);
 
             }
