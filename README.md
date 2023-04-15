@@ -1,6 +1,5 @@
 # Simple Pos
 
-Point Of Sale Sederhana :v
 
 # Main Features
 - Product
