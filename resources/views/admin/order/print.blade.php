@@ -380,14 +380,14 @@
         </section>
     </div>
     <script>
-        // window.print();
-        // window.onafterprint = back;
+        window.print();
+        window.onafterprint = back;
 
-        // function back() {
-        //     // redirect back & reload page
-        //     window.history.back();
-        //     location.reload();
-        // }
+        function back() {
+            // redirect back & reload page
+            window.history.back();
+            location.reload();
+        }
     </script>
 </body>
 
