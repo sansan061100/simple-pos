@@ -46,26 +46,22 @@
                                                 class="fa fa-plus"></i></button>
                                     </div>
                                 </td>
-                                <td>
+                                <td width="20%">
                                     <div class="price-wrap" x-init="price = $('.price-item').inputmask({
                                         alias: 'currency',
                                         {{-- prefix: 'Rp ', --}}
                                         digits: 0,
                                         groupSeparator: '.',
                                         rightAlign: false,
-                                    });
-                                    
-                                    ">
+                                    });">
                                         {{-- <p x-text=" rupiah(item.price)">
                                         </p> --}}
-                                        <input class="form-control price-item" type="text" x-bind:value="item.price"
-                                            style="width: 100%"
+                                        <input class="form-control price-item" type="text"
+                                            x-bind:value="item.price" style="width: 100%"
                                             @keyup="$store.pos.changePrice(item.id, $event.target.value)">
                                     </div> <!-- price-wrap .// -->
                                 </td>
                                 <td class=" text-right">
-                                    <button class="btn btn-outline-info" type="button"
-                                        @click="$store.pos.editItem(item.id)"><i class="fas fa-edit"></i></button>
                                     <button class="btn btn-outline-danger" @click="$store.pos.deleteItem(item.id)">
                                         <i class="fa fa-times"></i></button>
                                 </td>
