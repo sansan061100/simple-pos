@@ -51,7 +51,8 @@ const storeData = (args) => {
         data: {},
         table: 'table',
         modal: 'modal-store',
-        form: 'form-store'
+        form: 'form-store',
+        redirect: null,
     };
 
     let params = Object.assign(defaultParams, args);
@@ -64,13 +65,21 @@ const storeData = (args) => {
         contentType: false,
         processData: false,
         async: true,
+        redirect: null,
         beforeSend: function () {
             $(".preload").show()
         },
         success: function (result) {
             successNotif(result.message);
-            $('#' + params.table).DataTable().ajax.reload();
+            params.table != null ? $('#' + params.table).DataTable().ajax.reload() : '';
             $('#' + params.modal).modal('hide');
+            if (params.redirect != null) {
+                setTimeout(() => {
+                    window.location = params.redirect
+                }, 2000);
+
+            }
+
         },
         error: function (error) {
             let res = error.responseJSON;

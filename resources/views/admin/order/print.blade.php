@@ -77,7 +77,7 @@
         }
 
         .receipt-template .main-title {
-            font-size: 14px;
+            font-size: 10px;
             font-weight: 700;
             text-align: center;
             margin: 10px 0 5px 0;
@@ -89,7 +89,7 @@
         }
 
         .receipt-template .title {
-            font-size: 16px;
+            font-size: 12px;
             font-weight: 700;
             margin: 10px 0 5px 0;
         }
@@ -106,7 +106,7 @@
 
         .receipt-template td,
         .receipt-template th {
-            font-size: 8px;
+            font-size: 10px;
         }
 
         .receipt-template .info-area {
@@ -171,11 +171,11 @@
         }
 
         .receipt-template .receipt-header .info {
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .receipt-template .receipt-header .store-name {
-            font-size: 18px;
+            font-size: 10px;
             font-weight: 700;
             margin: 0;
             padding: 0;
@@ -298,19 +298,19 @@
                     </thead>
                     <tbody>
                         @php
-                        $totalAmount = 0;
+                            $totalAmount = 0;
                         @endphp
                         @foreach ($order->detail as $item)
-                        @php
-                        $amountPerItem = $item->stock->qty * $item->stock->selling_price;
-                        $totalAmount += $amountPerItem;
-                        @endphp
-                        <tr>
-                            <td>{{ substr($item->stock->product->name, 0, 15) }}
-                            <td class="text-right">{{ rupiah($item->stock->qty, '') }}</td>
-                            <td class="text-right">{{ rupiah($item->stock->selling_price, '') }}</td>
-                            <td class="text-right">{{ rupiah($amountPerItem, '') }}</td>
-                        </tr>
+                            @php
+                                $amountPerItem = $item->stock->qty * $item->stock->selling_price;
+                                $totalAmount += $amountPerItem;
+                            @endphp
+                            <tr>
+                                <td>{{ substr($item->stock->product->name, 0, 15) }}
+                                <td class="text-right">{{ rupiah($item->stock->qty, '') }}</td>
+                                <td class="text-right">{{ rupiah($item->stock->selling_price, '') }}</td>
+                                <td class="text-right">{{ rupiah($amountPerItem, '') }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -384,10 +384,9 @@
         window.onafterprint = back;
 
         function back() {
-            // redirect back & refresh
+            // redirect back & reload page
             window.history.back();
             location.reload();
-
         }
     </script>
 </body>

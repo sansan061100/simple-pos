@@ -1,19 +1,12 @@
 <script>
     $(document).ready(function() {
-        $('.currencyInput').inputmask({
-            alias: "currency",
-            prefix: "Rp ",
-            digits: 0,
-            groupSeparator: ".",
-            rightAlign: false,
-        })
+        $('.currencyInput').mask("000.000.000.000", {
+            reverse: true,
+        });
 
-        $('.numericInput').inputmask({
-            alias: "currency",
-            digits: 0,
-            groupSeparator: ".",
-            rightAlign: false,
-        })
+        $('.numericInput').mask("000.000.000.000", {
+            reverse: true,
+        });
     })
 
     let columns = [{

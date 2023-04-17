@@ -70,13 +70,13 @@ class OrderController extends Controller
 
             $discount = $request->discount / 100 * $total;
             $total = $total - $discount;
-
+            $paid = str_replace(',', '', $request->paid);
             $order = Order::create([
                 'invoice_code' => 'INV-' . date('YmdHis'),
                 'customer_id' => $request->customer,
                 'amount' => $total,
-                'paid' => $request->paid,
-                'change' => $request->paid - $total,
+                'paid' => $paid,
+                'change' => $paid - $total,
                 'discount' => $discount,
                 'status' => 1,
                 'user_id' => auth()->user()->id,

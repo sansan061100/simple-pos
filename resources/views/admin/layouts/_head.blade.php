@@ -14,6 +14,11 @@
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
 <style>
+    .product-title {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
     .navbar-nav>.user-menu>.dropdown-menu {
         width: 200px;
     }
@@ -40,8 +45,8 @@
     .loader-wrapper .loader {
         -webkit-animation: loading 1.4s linear infinite;
         animation: loading 1.4s linear infinite;
-        background: #6571ff;
-        background: linear-gradient(90deg, #6571ff 10%, transparent 42%);
+        background: #007bff;
+        background: linear-gradient(90deg, #007bff 10%, transparent 42%);
         border-radius: 50%;
         font-size: 10px;
         height: 50px;
@@ -52,7 +57,7 @@
     }
 
     .loader-wrapper .loader:before {
-        background: #6571ff;
+        background: #007bff;
         border-radius: 100% 0 0 0;
         content: "";
         height: 50%;

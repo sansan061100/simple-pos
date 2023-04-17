@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Customer\CustomerController;
 use App\Http\Controllers\Admin\Dashboard\DashboardController;
 use App\Http\Controllers\Admin\Order\OrderController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\Stock\StockController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -51,6 +52,9 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
         Route::resource('product', ProductController::class)->except(['create', 'update']);
         Route::get('setting', [SettingController::class, 'index']);
         Route::post('setting', [SettingController::class, 'store'])->name('setting.store');
+
+        Route::get('profile', [ProfileController::class, 'index']);
+        Route::post('profile', [ProfileController::class, 'store'])->name('profile.store');
     });
 
     Route::middleware('role:1,2')->group(function () {

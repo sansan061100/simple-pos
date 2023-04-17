@@ -43,7 +43,6 @@
 
                         <textarea name="address" class="form-control">{{ $setting?->address }}</textarea>
                     </div>
-                    @csrf
                     <button class="btn btn-success" type="submit">Save Changes</button>
                 </form>
             </div>
@@ -68,6 +67,8 @@
 
             storeData({
                 data: data,
+                table: null,
+                redirect: CURRENT_URL,
             })
         })
     </script>

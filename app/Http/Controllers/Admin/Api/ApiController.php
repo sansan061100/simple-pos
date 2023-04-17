@@ -30,7 +30,8 @@ class ApiController extends Controller
 
         if ($request->have_stock) {
             $product = $product->filter(function ($item) {
-                return $item->stock > 0;
+                // stok > 0 && selling_price > 0
+                return $item->stock > 0 && $item->selling_price > 0;
             });
         }
 
