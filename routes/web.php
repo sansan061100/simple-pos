@@ -67,7 +67,6 @@ Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
     });
 });
 
-
 // Route::get('tes', function () {
 
 //     $periode = collect(CarbonPeriod::create('2023-01-01', '2023-03-31'));
