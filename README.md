@@ -15,6 +15,7 @@
 - Copy `.env.example` to `.env`
 
 # Configuration
+- Run `php artisan key:generate`
 - Open `.env` and change the following lines:
 ```
 DB_CONNECTION=mysql
