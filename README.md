@@ -1,22 +1,24 @@
 # Simple Pos
 
-
 # Main Features
-- Product
-- Stock (In / Out)
-- Order
-- Report (Coming Soon)
 
+-   Product
+-   Stock (In / Out)
+-   Order
+-   Report (Coming Soon)
 
 # Installation
-- Clone this repo
-- Change branch to `dev`
-- Run `composer install`
-- Import sql file in sql folder to your database
-- Copy `.env.example` to `.env`
+
+-   Clone this repo
+-   Change branch to `dev`
+-   Run `composer install`
+-   Import sql file in sql folder to your database
+-   Copy `.env.example` to `.env`
 
 # Configuration
-- Open `.env` and change the following lines:
+
+-   Open `.env` and change the following lines:
+
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -26,12 +28,13 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-
-
 # Usage
-- Run `php artisan key:generate`
-- Run `php artisan serve`
-- Open `http://localhost:8000` in your browser
+
+-   Run `php artisan key:generate`
+-   Run `php artisan serve`
+-   RUn `npm run dev` in another terminal
+-   Open `http://localhost:8000` in your browser
 
 # License
+
 MIT License
